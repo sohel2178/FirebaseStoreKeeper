@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context="com.adec.firebasestorekeeper.Navigation.AddStoreFragment">
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        android:background="@drawable/text_view_back"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/outlet_creation_form"
+        android:textAllCaps="true"
+        android:id="@+id/title"
+        android:textSize="20sp"/>
+
+    <com.adec.firebasestorekeeper.CustomView.MyEditText
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/title"
+        android:inputType="text"
+        android:hint="Outlet Name"
+        android:id="@+id/store_name"/>
+
+    <com.adec.firebasestorekeeper.CustomView.MyEditText
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/store_name"
+        android:inputType="text"
+        android:hint="Address"
+        android:id="@+id/store_address"/>
+
+    <com.adec.firebasestorekeeper.CustomView.MyEditText
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/store_address"
+        android:inputType="text"
+        android:hint="Contact"
+        android:id="@+id/store_contact"/>
+
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/store_contact"
+        android:id="@+id/add"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/text_color_white"
+        android:text="add"
+        android:backgroundTint="@color/my_color"/>
+
+
+
+</RelativeLayout>

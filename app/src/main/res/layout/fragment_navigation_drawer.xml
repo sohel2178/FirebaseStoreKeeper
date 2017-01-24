@@ -1,0 +1,369 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/text_color_white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.adec.firebasestorekeeper.NavigationDrawer">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_info"
+        android:padding="8dp"
+        android:background="@color/colorPrimary">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/profile_image"
+            android:textSize="18dp"
+            android:id="@+id/name"
+            android:textColor="@color/text_color_white"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/profile_image"
+            android:layout_below="@+id/name"
+            android:id="@+id/email"
+            android:textSize="12sp"
+            android:textColor="@color/black"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_info"
+        android:paddingLeft="12dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_item_height"
+            android:id="@+id/home"
+            android:clickable="true"
+            android:background="@drawable/custom_bg">
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="@string/icon_home"
+                android:id="@+id/home_icon"
+                android:layout_centerVertical="true"
+                android:textColor="#333333"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_toRightOf="@+id/home_icon"
+                android:text="Home"
+                android:id="@+id/tv_home"
+                android:textAllCaps="true"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/divider" />
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_item_height"
+            android:id="@+id/profile"
+            android:clickable="true"
+            android:background="@drawable/custom_bg">
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="@string/icon_user"
+                android:id="@+id/profile_icon"
+                android:layout_centerVertical="true"
+                android:textColor="#333333"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_toRightOf="@+id/profile_icon"
+                android:text="Profile"
+                android:id="@+id/tv_profile"
+                android:textAllCaps="true"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/divider"
+                android:layout_alignParentBottom="true"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_item_height"
+            android:id="@+id/all_store"
+            android:clickable="true"
+            android:visibility="gone"
+            android:background="@drawable/custom_bg">
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="@string/icon_plus"
+                android:id="@+id/icon_store"
+                android:layout_centerVertical="true"
+                android:textColor="#333333"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_toRightOf="@+id/icon_store"
+                android:text="@string/stores"
+                android:id="@+id/tv_all_store"
+                android:textAllCaps="true"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/divider"
+                android:layout_alignParentBottom="true"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_item_height"
+            android:id="@+id/view_all_manager"
+            android:clickable="true"
+            android:visibility="gone"
+            android:background="@drawable/custom_bg">
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="@string/icon_list"
+                android:id="@+id/plus_icon_view_man"
+                android:layout_centerVertical="true"
+                android:textColor="#333333"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_toRightOf="@+id/plus_icon_view_man"
+                android:text="Managers"
+                android:id="@+id/tv_view_all_manager"
+                android:textAllCaps="true"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/divider"
+                android:layout_alignParentBottom="true"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_item_height"
+            android:id="@+id/all_customers"
+            android:clickable="true"
+            android:background="@drawable/custom_bg">
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="@string/icon_list"
+                android:id="@+id/icon_all_customers"
+                android:layout_centerVertical="true"
+                android:textColor="#333333"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_toRightOf="@+id/icon_all_customers"
+                android:text="@string/all_customers"
+                android:id="@+id/txt_all_customers"
+                android:textAllCaps="true"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/divider" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_item_height"
+            android:id="@+id/employees"
+            android:clickable="true"
+            android:background="@drawable/custom_bg">
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="@string/icon_list"
+                android:id="@+id/icon_employees"
+                android:layout_centerVertical="true"
+                android:textColor="#333333"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_toRightOf="@+id/icon_employees"
+                android:text="@string/employees"
+                android:id="@+id/txt_employees"
+                android:textAllCaps="true"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/divider" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_item_height"
+            android:id="@+id/transaction"
+            android:clickable="true"
+            android:visibility="gone"
+            android:background="@drawable/custom_bg">
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="@string/icon_log_out"
+                android:id="@+id/icon_transaction"
+                android:layout_centerVertical="true"
+                android:textColor="#333333"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_toRightOf="@+id/icon_transaction"
+                android:text="@string/transaction"
+                android:id="@+id/txt_transaction"
+                android:textAllCaps="true"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/divider" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/nav_item_height"
+            android:id="@+id/log_out"
+            android:clickable="true"
+            android:background="@drawable/custom_bg">
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:text="@string/icon_log_out"
+                android:id="@+id/home_logout"
+                android:layout_centerVertical="true"
+                android:textColor="#333333"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_toRightOf="@+id/home_logout"
+                android:text="@string/log_out"
+                android:id="@+id/tv_log_out"
+                android:textAllCaps="true"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/divider" />
+
+        </RelativeLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

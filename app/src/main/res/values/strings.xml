@@ -1,0 +1,58 @@
+<resources>
+    <string name="app_name">FirebaseStoreKeeper</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+
+    <string name="icon_list">{fa-list}</string>
+    <string name="icon_select">{fa-mouse-pointer}</string>
+    <string name="icon_attachment">{fa-paperclip }</string>
+    <string name="icon_calculator">{fa-calculator}</string>
+    <string name="icon_home">{fa-home}</string>
+    <string name="icon_camera">{fa-camera}</string>
+    <string name="icon_user">{fa-user}</string>
+    <string name="icon_log_out">{fa-sign-out}</string>
+    <string name="icon_notification">{fa-bell-o}</string>
+    <string name="icon_message">{fa-envelope-o}</string>
+    <string name="icon_quiz">{fa-comment-o}</string>
+    <string name="icon_globe">{fa-globe}</string>
+    <string name="icon_time">{fa-clock-o}</string>
+    <string name="icon_book">{fa-book}</string>
+    <string name="icon_spin">{fa-spinner spin}</string>
+    <string name="icon_star">{fa-star}</string>
+    <string name="icon_right_arrow">{fa-chevron-right}</string>
+    <string name="icon_close">{fa-times-circle}</string>
+    <string name="icon_news">{fa-rss}</string>
+    <string name="icon_share">{fa-share-alt}</string>
+    <string name="icon_info">{fa-info}</string>
+    <string name="icon_info_circle">{fa-info-circle}</string>
+    <string name="icon_type_of_quiz">{fa-paper-plane}</string>
+    <string name="icon_start_a_quiz">{fa-random}</string>
+    <string name="icon_settings">{fa-cog}</string>
+    <string name="icon_tag">{fa-tag}</string>
+    <string name="icon_poll">{fa-hand-o-right}</string>
+    <string name="icon_feedback">{fa-commenting}</string>
+    <string name="icon_help">{fa-question-circle}</string>
+    <string name="icon_about_us">{fa-eye}</string>
+    <string name="icon_chat">{fa-comments-o}</string>
+    <string name="icon_cross">{fa-times}</string>
+    <string name="icon_tick">{fa-check}</string>
+    <string name="icon_servey">{fa-bullhorn}</string>
+    <string name="icon_poll2">{fa-lightbulb-o}</string>
+    <string name="icon_plus">{fa-plus-circle}</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="user_name_or_email">User Name Or Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="log_out">Log out</string>
+    <string name="add_store">Add Store</string>
+    <string name="outlet_creation_form">Outlet Creation Form</string>
+    <string name="add_customer">Add Customer</string>
+    <string name="all_customers">Customers</string>
+    <string name="employees">Employees</string>
+    <string name="transaction">Transaction</string>
+    <string name="stores">Stores</string>
+</resources>

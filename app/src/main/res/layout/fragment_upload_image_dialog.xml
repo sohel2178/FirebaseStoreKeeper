@@ -1,0 +1,103 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.adec.firebasestorekeeper.DialogFragment.UploadImageDialog">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:layout_centerHorizontal="true"
+        android:text="Selection"
+        android:id="@+id/title"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:src="@drawable/my_divider"
+        android:id="@+id/divider"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_below="@+id/divider">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:text="@string/icon_camera"
+                    android:textColor="@color/text_color_white"
+                    android:textSize="24sp"
+                    android:gravity="center"
+                    android:id="@+id/camera"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/blue_circle_back"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Camera"
+                    android:padding="3dp"
+                    android:textSize="10sp"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:text="{fa-image}"
+                    android:textColor="@color/text_color_white"
+                    android:textSize="24sp"
+                    android:gravity="center"
+                    android:id="@+id/gallery"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/blue_circle_back"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gallery"
+                    android:textSize="10sp"
+                    android:padding="3dp"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

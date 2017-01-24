@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    tools:context="com.adec.firebasestorekeeper.DialogFragment.ManagerDialogFragment">
+
+    <TextView
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Select Manager"
+        android:id="@+id/title"
+        android:textSize="18sp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:id="@+id/divider"
+        android:src="@drawable/my_divider"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:id="@+id/recyclerView"
+        android:padding="8dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:layout_below="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:id="@+id/cancel"
+            android:src="@drawable/cancel"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/image_button_back"
+            />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/ok"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/image_button_back"
+            android:src="@drawable/ok"/>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/card_back">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/name"
+        android:padding="4dp"
+        android:textSize="18sp"
+        android:textColor="@color/my_color"
+        android:text="Name"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/opening_balance"
+        android:layout_alignParentEnd="true"
+        android:padding="4dp"
+        android:textSize="16sp"
+        android:textColor="@color/delete"
+        android:text="1200"/>
+
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/name"
+        android:id="@+id/icon_contact"
+        android:src="@drawable/mobile"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/icon_contact"
+        android:layout_below="@+id/name"
+        android:textStyle="italic"
+        android:layout_weight="1"
+        android:id="@+id/contact"
+        android:textSize="10sp"
+        android:textColor="@color/colorPrimary"/>
+
+   <!-- <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/info"
+        android:background="@color/icon_color"
+        android:layout_below="@id/name"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:padding="6dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:text="Email"
+                android:textColor="@color/text_color_white"/>
+
+            <TextView
+                android:padding="6dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/email"
+                android:textColor="@color/text_color_white"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:padding="6dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:text="Contact"
+                android:textColor="@color/text_color_white"/>
+
+            <TextView
+                android:padding="6dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/contact"
+                android:textColor="@color/text_color_white"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:padding="6dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:text="Address"
+                android:textColor="@color/text_color_white"/>
+
+            <TextView
+                android:padding="6dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/address"
+                android:textColor="@color/text_color_white"/>
+        </LinearLayout>
+
+
+
+
+
+
+
+    </LinearLayout>-->
+
+   <!-- <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/info">
+
+
+        <Button
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/update"
+            android:textColor="@color/text_color_white"
+            android:text="update"
+            android:backgroundTint="@color/my_color"/>
+    </RelativeLayout>-->
+
+</RelativeLayout>

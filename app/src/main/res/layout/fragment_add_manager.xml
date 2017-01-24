@@ -1,0 +1,115 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context="com.adec.firebasestorekeeper.Navigation.AddManagerFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="5dp"
+                android:background="@drawable/text_view_back"
+                android:textColor="@color/colorPrimary"
+                android:text="Manager Creation Form"
+                android:textAllCaps="true"
+                android:id="@+id/title"
+                android:textSize="20sp"/>
+
+
+            <com.adec.firebasestorekeeper.CustomView.MyEditText
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/title"
+                android:inputType="text"
+                android:hint="Name"
+                android:id="@+id/name"/>
+
+            <com.adec.firebasestorekeeper.CustomView.MyEditText
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/name"
+                android:inputType="textEmailAddress"
+                android:hint="Email"
+                android:id="@+id/email"/>
+
+            <com.adec.firebasestorekeeper.CustomView.MyEditText
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/email"
+                android:inputType="text"
+                android:hint="Address"
+                android:id="@+id/address"/>
+
+            <com.adec.firebasestorekeeper.CustomView.MyEditText
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/address"
+                android:inputType="text"
+                android:hint="Contact"
+                android:id="@+id/contact"/>
+
+            <com.adec.firebasestorekeeper.CustomView.MyEditText
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/contact"
+                android:inputType="text"
+                android:hint="NID"
+                android:id="@+id/nid"/>
+
+            <com.adec.firebasestorekeeper.CustomView.MyEditText
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/nid"
+                android:inputType="text"
+                android:hint="Referred By"
+                android:id="@+id/referred_by"/>
+
+            <com.adec.firebasestorekeeper.CustomView.MyEditText
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/referred_by"
+                android:inputType="number"
+                android:hint="Salary"
+                android:id="@+id/salary"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/salary"
+                android:layout_marginTop="10dp"
+                android:id="@+id/add"
+                android:text="add"
+                android:textColor="@color/text_color_white"
+                android:backgroundTint="@color/my_color"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
+
+
+
+
+
+</RelativeLayout>

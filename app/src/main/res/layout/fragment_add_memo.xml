@@ -1,0 +1,251 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/text_color_white"
+    android:padding="10dp"
+    tools:context="com.adec.firebasestorekeeper.Fragments.AddMemo">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:textSize="24sp"
+                        android:gravity="center"
+                        android:id="@+id/calendar"
+                        android:text="{fa-calendar}"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_toLeftOf="@+id/calendar"
+                        android:inputType="text"
+                        android:hint="Date"
+                        android:focusable="false"
+                        android:background="@drawable/bottom_border_default"
+                        android:paddingLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:id="@+id/date"/>
+
+                </RelativeLayout>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:inputType="text"
+                    android:hint="Memo Number"
+                    android:background="@drawable/bottom_border_default"
+                    android:paddingLeft="10dp"
+                    android:id="@+id/memo_no"/>
+
+                <AutoCompleteTextView
+                    android:layout_toLeftOf="@+id/sync"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:inputType="textEmailAddress"
+                    android:hint="Product Name"
+                    android:background="@drawable/bottom_border_default"
+                    android:paddingLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/product_name"/>
+
+
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:inputType="number"
+                    android:hint="Quantity"
+                    android:background="@drawable/bottom_border_default"
+                    android:paddingLeft="10dp"
+                    android:id="@+id/quantity"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:inputType="numberDecimal"
+                    android:hint="Unit Price"
+                    android:background="@drawable/bottom_border_default"
+                    android:paddingLeft="10dp"
+                    android:id="@+id/unit_price"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:inputType="text"
+                    android:hint="Total"
+                    android:background="@drawable/bottom_border_default"
+                    android:paddingLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/total"/>
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:inputType="numberDecimal"
+                        android:hint="Select Customer"
+                        android:focusable="false"
+                        android:background="@drawable/bottom_border_default"
+                        android:paddingLeft="10dp"
+                        android:layout_toLeftOf="@+id/select_customer"
+                        android:id="@+id/customer"/>
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:textSize="24sp"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:background="@drawable/custom_bg"
+                        android:id="@+id/select_customer"
+                        android:text="@string/icon_select"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true" />
+
+                </RelativeLayout>
+
+
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:inputType="numberDecimal"
+                    android:background="@drawable/bottom_border_default"
+                    android:paddingLeft="10dp"
+                    android:hint="Payment"
+                    android:id="@+id/payment"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bottom_border_default"
+                    android:paddingLeft="10dp"
+                    android:hint="Payment Method"
+                    android:inputType="text"
+                    android:id="@+id/payment_method"/>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:paddingLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/temp_txt2"
+                        android:text="Select Sales Person"
+                        android:textSize="18sp"/>
+
+                    <Spinner
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/temp_txt2"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center"
+                        android:inputType="text"
+                        android:hint="Customer"
+                        android:focusable="false"
+                        android:id="@+id/sales_person"/>
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:layout_marginEnd="5dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:textSize="24sp"
+                        android:gravity="center"
+                        android:id="@+id/attachment"
+                        android:text="@string/icon_attachment"/>
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:layout_marginRight="16dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_toLeftOf="@+id/attachment"
+                        android:textSize="24sp"
+                        android:gravity="center"
+                        android:id="@+id/camera"
+                        android:text="@string/icon_camera"/>
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rv_attachments">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="top"
+                    android:background="@drawable/bottom_border_default"
+                    android:paddingLeft="10dp"
+                    android:inputType="textMultiLine"
+                    android:hint="Remarks"
+                    android:id="@+id/remarks"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="add"
+                    android:id="@+id/add"
+                    android:backgroundTint="@color/my_color"
+                    android:textColor="@color/text_color_white"/>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

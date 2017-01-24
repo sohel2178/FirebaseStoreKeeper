@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.adec.firebasestorekeeper.LoginActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/first_container"
+            android:layout_margin="@dimen/default_margin">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_gravity="start"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:background="@color/edit_text_color"
+                    android:textColor="@color/edit_text_text_color"
+                    android:hint="@string/user_name_or_email"
+                    android:textColorHint="@color/hint_color"
+                    android:id="@+id/user_name"
+                    android:paddingLeft="@dimen/edit_text_padding" />
+
+                <ImageView
+                    android:layout_marginTop="-3dp"
+                    android:layout_gravity="start"
+                    android:layout_width="@dimen/other_icon_dim"
+                    android:layout_height="@dimen/other_icon_dim"
+                    android:src="@drawable/user"/>
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin">
+
+                <EditText
+                    android:layout_gravity="start"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:background="@color/edit_text_color"
+                    android:textColor="@color/edit_text_text_color"
+                    android:inputType="textPassword"
+                    android:hint="@string/password"
+                    android:textColorHint="@color/hint_color"
+                    android:id="@+id/password"
+                    android:paddingLeft="@dimen/edit_text_padding" />
+
+                <ImageView
+                    android:layout_marginTop="-3dp"
+                    android:layout_gravity="start"
+                    android:layout_width="@dimen/other_icon_dim"
+                    android:layout_height="@dimen/other_icon_dim"
+                    android:src="@drawable/password"/>
+
+            </FrameLayout>
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/login"
+                android:textColor="@color/text_color_white"
+                android:id="@+id/btn_login"
+                android:backgroundTint="@color/colorPrimary"/>
+
+
+
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
