@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText etUserName,etPassword;
     private Button btnLogin;
 
-    private ProgressDialog dataLoaderIndicator;
+
 
 
 
@@ -50,9 +50,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         MyUserReferenceClass myUserReferenceClass = new MyUserReferenceClass();
         myUserReferenceClass.setUserReferenceListener(this);
 
-        dataLoaderIndicator = new ProgressDialog(this);
-        dataLoaderIndicator.setMessage("Please Wait while Loading Data...");
-        dataLoaderIndicator.show();
+
+
 
 
         initView();
@@ -73,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         Log.d("lastId",String.valueOf(last_id));*/
         userList.add(user);
-        dataLoaderIndicator.hide();
+
 
     }
 
@@ -81,6 +80,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_login:
+
+
+
                 String email = etUserName.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
 
@@ -99,6 +101,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if(userList.size()==0){
                     Toast.makeText(this, "No User Loaded Yet", Toast.LENGTH_SHORT).show();
                     return;
+                }
+
+                while (userList.size()==0){
+                    continue;
                 }
 
                 loginUser(email,password);

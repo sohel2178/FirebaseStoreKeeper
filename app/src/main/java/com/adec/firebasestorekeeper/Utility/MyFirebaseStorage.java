@@ -14,6 +14,7 @@ public class MyFirebaseStorage {
     private static final String MEMO="memo";
     private static final String VOUCHER="voucher";
     private static final String STORE="store";
+    private static final String EMPLOYEE="employees";
 
     private StorageReference mainRef;
 
@@ -36,6 +37,10 @@ public class MyFirebaseStorage {
 
     public StorageReference getStoreImageReference(){
         return mainRef.child(STORE);
+    }
+
+    public StorageReference getEmployeesReference(){
+        return mainRef.child(EMPLOYEE);
     }
 
 }

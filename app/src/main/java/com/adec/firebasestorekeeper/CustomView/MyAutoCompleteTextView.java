@@ -22,9 +22,8 @@ public class MyAutoCompleteTextView extends AutoCompleteTextView implements View
     public MyAutoCompleteTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context=context;
-        this.setBackground(ResourcesCompat.getDrawable(context.getResources(), R.drawable.edit_text_background_deselect,null));
+        this.setBackground(ResourcesCompat.getDrawable(context.getResources(), R.drawable.bottom_border_default,null));
         this.setOnFocusChangeListener(this);
-        this.setPadding(10,5,5,5);
         this.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.edit_text_text_color,null));
     }
 
@@ -35,9 +34,9 @@ public class MyAutoCompleteTextView extends AutoCompleteTextView implements View
     @Override
     public void onFocusChange(View view, boolean b) {
         if(view.hasFocus()){
-            view.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.edit_text_background,null));
+            view.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.bottom_border_selected,null));
         }else{
-            view.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.edit_text_background_deselect,null));
+            view.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.bottom_border_default,null));
         }
     }
 }

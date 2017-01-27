@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
@@ -85,6 +86,11 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ManagerH
             });
         }
 
+        if(currentUser.getUser_type()==1){
+            holder.tvStoreName.setVisibility(View.GONE);
+            holder.ivStore.setVisibility(View.GONE);
+        }
+
 
 
         animateScale(holder.itemView);
@@ -106,6 +112,7 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ManagerH
     public class ManagerHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvName,tvContact,tvStoreName;
         CircleImageView image;
+        ImageView ivStore;
 
 
         public ManagerHolder(View itemView) {
@@ -115,6 +122,7 @@ public class ManagerAdapter extends RecyclerView.Adapter<ManagerAdapter.ManagerH
             tvContact = (TextView) itemView.findViewById(R.id.contact);
             tvStoreName = (TextView) itemView.findViewById(R.id.store_name);
             image = (CircleImageView) itemView.findViewById(R.id.image);
+            ivStore= (ImageView) itemView.findViewById(R.id.icon_store);
 
             itemView.setOnClickListener(this);
         }

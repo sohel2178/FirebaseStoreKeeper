@@ -45,6 +45,7 @@ import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
 import com.adec.firebasestorekeeper.CustomView.MyAutoCompleteTextView;
 import com.adec.firebasestorekeeper.CustomView.MyEditText;
 import com.adec.firebasestorekeeper.DialogFragment.CustomerDialogFragment;
+import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Model.Customer;
 import com.adec.firebasestorekeeper.Model.Memo;
 import com.adec.firebasestorekeeper.Model.Product;
@@ -87,6 +88,8 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
 
     private ActionBar actionBar;
 
+    private FragmentListener fragmentListener;
+
 
     private EditText etMemoNumber,etQuantity,etUnitPrice,etTotal,etPayment,etDate,etRemarks,etCustomer,etPaymentMethod;
     private Spinner spSalesMan;
@@ -127,6 +130,8 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
 
     private List<String> productList;
 
+    private String store_id;
+
 
     public AddMemo() {
         // Required empty public constructor
@@ -140,10 +145,12 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
 
         actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
 
+        fragmentListener = (FragmentListener) getActivity();
+
         UserLocalStore userLocalStore = new UserLocalStore(getActivity());
         currentUser = userLocalStore.getUser();
 
-        String store_id = currentUser.getAssign_store_id();
+        store_id = currentUser.getAssign_store_id();
 
         myDatabaseReference = new MyDatabaseReference();
         transactionRef = myDatabaseReference.getTransactionRef(store_id);
@@ -215,6 +222,10 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
         super.onResume();
 
         actionBar.setTitle("Memo Entry Form");
+
+        if(fragmentListener!= null){
+            fragmentListener.getFragment(0);
+        }
 
     }
 
@@ -428,7 +439,7 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
                 dialog.show();
                 postDatatotheServer(voucher);*/
 
-               Memo memo = new Memo(memo_no,date,productName,quantity,unitPrice,total,customerId,paymentAmount,salesPersonId,paymentMethod,remarks);
+               Memo memo = new Memo(memo_no,date,productName,quantity,unitPrice,total,customerId,paymentAmount,salesPersonId,paymentMethod,remarks,store_id);
 
                 dialog.show();
                 postDatatotheServer(memo);

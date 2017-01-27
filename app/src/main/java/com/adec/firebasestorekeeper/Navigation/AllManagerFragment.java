@@ -17,10 +17,13 @@ import android.view.ViewGroup;
 import com.adec.firebasestorekeeper.Adapter.ManagerAdapter;
 import com.adec.firebasestorekeeper.AppUtility.Constant;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
+import com.adec.firebasestorekeeper.DetailFragment.EmployeeDetailFragment;
 import com.adec.firebasestorekeeper.DetailFragment.ManagerDetailFragment;
+import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Model.User;
 import com.adec.firebasestorekeeper.R;
 import com.adec.firebasestorekeeper.Utility.MyDatabaseReference;
+import com.adec.firebasestorekeeper.Utility.RefListenerPackage.MyEmployeeReferenceClass;
 import com.adec.firebasestorekeeper.Utility.RefListenerPackage.MyUserReferenceClass;
 import com.google.firebase.database.DatabaseReference;
 
@@ -30,7 +33,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AllManagerFragment extends Fragment implements MyUserReferenceClass.UserReferenceListener,
+public class AllManagerFragment extends Fragment implements MyEmployeeReferenceClass.EmployeeReferenceListener,
         View.OnClickListener,ManagerAdapter.ManagerListener{
 
     private RecyclerView rvManagers;
@@ -42,6 +45,8 @@ public class AllManagerFragment extends Fragment implements MyUserReferenceClass
     private ActionBar actionBar;
 
     private FloatingActionButton fabAdd;
+
+    private FragmentListener fragmentListener;
 
 
 
@@ -56,11 +61,13 @@ public class AllManagerFragment extends Fragment implements MyUserReferenceClass
 
         actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
 
+        fragmentListener = (FragmentListener) getActivity();
+
         UserLocalStore userLocalStore = new UserLocalStore(getActivity());
         currentUserID = userLocalStore.getUser().getId();
 
-        MyUserReferenceClass myUserReferenceClass = new MyUserReferenceClass();
-        myUserReferenceClass.setUserReferenceListener(this);
+        MyEmployeeReferenceClass employeeReferenceClass = new MyEmployeeReferenceClass(currentUserID);
+        employeeReferenceClass.setEmployeeReferenceListener(this);
 
         userList = new ArrayList<>();
         adapter = new ManagerAdapter(getActivity(),userList);
@@ -94,10 +101,15 @@ public class AllManagerFragment extends Fragment implements MyUserReferenceClass
     @Override
     public void onResume() {
         super.onResume();
+        actionBar.show();
         actionBar.setTitle(Constant.ALL_MANAGER);
+
+        if(fragmentListener!= null){
+            fragmentListener.getFragment(0);
+        }
     }
 
-    @Override
+   /* @Override
     public void getUser(User user) {
         if(user.getParent_id().equals(currentUserID)){
             adapter.addManager(user);
@@ -105,7 +117,7 @@ public class AllManagerFragment extends Fragment implements MyUserReferenceClass
 
         }
         Log.d("TGTGTG","1212");
-    }
+    }*/
 
     @Override
     public void onClick(View view) {
@@ -124,5 +136,12 @@ public class AllManagerFragment extends Fragment implements MyUserReferenceClass
         managerDetailFragment.setArguments(bundle);
 
         getFragmentManager().beginTransaction().replace(R.id.main_container,managerDetailFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void getEmployee(User user) {
+        if(user.getUser_type()==1){
+            adapter.addManager(user);
+        }
     }
 }

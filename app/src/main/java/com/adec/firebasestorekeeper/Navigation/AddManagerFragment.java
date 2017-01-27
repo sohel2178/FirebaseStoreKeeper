@@ -33,7 +33,6 @@ public class AddManagerFragment extends Fragment implements View.OnClickListener
 
     private MyEditText etName,etEmail,etAddress,etContact,etNid,etReferredBy,etSalary;
     private Button btnAdd;
-    private TextView tvTitle;
 
 
     private DatabaseReference userRef;
@@ -102,11 +101,10 @@ public class AddManagerFragment extends Fragment implements View.OnClickListener
         etReferredBy = (MyEditText) view.findViewById(R.id.referred_by);
         etSalary = (MyEditText) view.findViewById(R.id.salary);
 
-        tvTitle = (TextView) view.findViewById(R.id.title);
 
-        if(currentUser.getUser_type()==1){
+        /*if(currentUser.getUser_type()==1){
             tvTitle.setText("Sales Man Creation Form");
-        }
+        }*/
 
         btnAdd = (Button) view.findViewById(R.id.add);
 

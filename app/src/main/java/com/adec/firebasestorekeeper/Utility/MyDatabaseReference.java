@@ -17,6 +17,7 @@ public class MyDatabaseReference {
     private static final String ATTACHMENT_REF="attachments";
     private static final String EMPLOYEE_REF="employees";
     private static final String PRODUCT_REF="products";
+    private static final String HEAD_REF="Head";
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference mainRef;
@@ -63,6 +64,11 @@ public class MyDatabaseReference {
     public DatabaseReference getProductReference(String owner_id){
         DatabaseReference productRef = mainRef.child(PRODUCT_REF).child(owner_id);
         return productRef;
+    }
+
+    public DatabaseReference getHeadReference(String owner_id){
+        DatabaseReference headRef = mainRef.child(HEAD_REF).child(owner_id);
+        return headRef;
     }
 
 

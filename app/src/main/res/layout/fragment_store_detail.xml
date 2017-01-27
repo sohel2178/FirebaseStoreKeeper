@@ -11,7 +11,7 @@
         android:layout_height="48dp"
         android:elevation="6dp"
         android:id="@+id/top"
-        android:background="#dddddd">
+        android:background="@color/colorPrimary">
 
         <ImageView
             android:layout_width="42dp"
@@ -43,8 +43,8 @@
         android:layout_below="@+id/top">
 
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:layout_centerHorizontal="true"
@@ -52,6 +52,8 @@
             android:id="@+id/image"/>
 
         <TextView
+            android:clickable="true"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -74,7 +76,7 @@
         <ImageView
             android:layout_width="42dp"
             android:layout_height="42dp"
-            android:padding="6dp"
+            android:padding="12dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:id="@+id/icon_store"
@@ -86,6 +88,7 @@
             android:layout_height="42dp"
             android:layout_marginLeft="-42dp"
             android:paddingLeft="42dp"
+            android:textSize="12sp"
             android:id="@+id/store_name"
             android:layout_below="@+id/divider"
             android:layout_toRightOf="@+id/icon_store"
@@ -94,7 +97,7 @@
         <ImageView
             android:layout_width="42dp"
             android:layout_height="42dp"
-            android:padding="6dp"
+            android:padding="12dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:id="@+id/icon_contact"
@@ -106,6 +109,7 @@
             android:layout_height="42dp"
             android:layout_marginLeft="-42dp"
             android:paddingLeft="42dp"
+            android:textSize="12sp"
             android:id="@+id/store_contact"
             android:layout_below="@+id/store_name"
             android:layout_toRightOf="@+id/icon_contact"
@@ -115,7 +119,7 @@
         <ImageView
             android:layout_width="42dp"
             android:layout_height="42dp"
-            android:padding="6dp"
+            android:padding="12dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:id="@+id/icon_address"
@@ -127,6 +131,7 @@
             android:layout_height="42dp"
             android:layout_marginLeft="-42dp"
             android:paddingLeft="42dp"
+            android:textSize="12sp"
             android:id="@+id/store_address"
             android:layout_below="@+id/store_contact"
             android:layout_toRightOf="@+id/icon_contact"

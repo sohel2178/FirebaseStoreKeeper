@@ -17,14 +17,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.adec.firebasestorekeeper.Adapter.TransactionAdapter;
 import com.adec.firebasestorekeeper.AppUtility.Constant;
 import com.adec.firebasestorekeeper.AppUtility.MyFloatingAction;
+import com.adec.firebasestorekeeper.AppUtility.MyUtils;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
 import com.adec.firebasestorekeeper.DetailFragment.VoucherDetailFragment;
 import com.adec.firebasestorekeeper.Fragments.AddMemo;
 import com.adec.firebasestorekeeper.Fragments.AddVoucher;
+import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Model.Transaction;
 import com.adec.firebasestorekeeper.Model.User;
 import com.adec.firebasestorekeeper.R;
@@ -40,7 +43,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TransactionFragment extends Fragment implements MyFloatingAction.FloatingActionMenuListener,
+public class TransactionFragment extends Fragment implements
         MyTransactionReferenceClass.TransactionReferenceListener,TransactionAdapter.TransactionListener{
 
     private ActionBar actionBar;
@@ -49,14 +52,16 @@ public class TransactionFragment extends Fragment implements MyFloatingAction.Fl
     private List<Transaction> transactionList;
     private TransactionAdapter adapter;
 
-    private MyFloatingAction myFloatingAction;
+   // private MyFloatingAction myFloatingAction;
+
 
 
     private User currentUser;
 
-    private ProgressDialog dialog;
 
     private MyTransactionReferenceClass myTransactionReferenceClass;
+
+    private FragmentListener fragmentListener;
 
 
 
@@ -70,6 +75,13 @@ public class TransactionFragment extends Fragment implements MyFloatingAction.Fl
         super.onCreate(savedInstanceState);
         actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
 
+        if(!MyUtils.isNetworkConnected(getActivity())){
+            Toast.makeText(getActivity(), "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+            //return;
+        }
+
+        fragmentListener = (FragmentListener) getActivity();
+
         UserLocalStore userLocalStore = new UserLocalStore(getActivity());
         currentUser = userLocalStore.getUser();
 
@@ -80,9 +92,6 @@ public class TransactionFragment extends Fragment implements MyFloatingAction.Fl
         adapter = new TransactionAdapter(getActivity(),transactionList);
         adapter.setTransactionListener(this);
 
-        dialog = new ProgressDialog(getActivity());
-        dialog.setMessage("Please Wait while Loading Data...");
-        dialog.show();
     }
 
     @Override
@@ -107,14 +116,20 @@ public class TransactionFragment extends Fragment implements MyFloatingAction.Fl
     @Override
     public void onResume() {
         super.onResume();
-        myFloatingAction= new MyFloatingAction(getActivity());
-        myFloatingAction.setFloatingActionMenuListener(this);
+       /* myFloatingAction= new MyFloatingAction(getActivity());
+        myFloatingAction.setFloatingActionMenuListener(this);*/
 
-        if(currentUser.getUser_type()==0){
-            myFloatingAction.hide();
+        if(fragmentListener!= null){
+            fragmentListener.getFragment(10);
         }
 
+
+       /* if(currentUser.getUser_type()==0){
+            myFloatingAction.hide();
+        }*/
+
         actionBar.setTitle("Transactions");
+        actionBar.show();
     }
 
     private void buildFloatingActionMenu(){
@@ -168,11 +183,17 @@ public class TransactionFragment extends Fragment implements MyFloatingAction.Fl
     @Override
     public void onDestroy() {
         super.onDestroy();
-        myFloatingAction.hide();
-        myFloatingAction=null;
+       /* myFloatingAction.hide();
+        myFloatingAction=null;*/
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d("DETACH","Transaction Detached");
+    }
+
+   /* @Override
     public void buttonClick(int buttonNumber) {
         switch (buttonNumber){
             case 1:
@@ -192,7 +213,7 @@ public class TransactionFragment extends Fragment implements MyFloatingAction.Fl
             case 3:
                 break;
         }
-    }
+    }*/
 
 
 
@@ -209,7 +230,6 @@ public class TransactionFragment extends Fragment implements MyFloatingAction.Fl
 
     @Override
     public void addTransaction(Transaction transaction) {
-        dialog.dismiss();
         adapter.addTransaction(transaction);
     }
 
@@ -217,7 +237,9 @@ public class TransactionFragment extends Fragment implements MyFloatingAction.Fl
     public void onClickTransaction(int position) {
         Transaction transaction = transactionList.get(position);
 
-        if(transaction.getType()==0){
+        Toast.makeText(getActivity(), "Todo After Final Decision !!!!", Toast.LENGTH_SHORT).show();
+
+        /*if(transaction.getType()==0){
             Bundle bundle = new Bundle();
             bundle.putSerializable(Constant.TRANSACTION,transaction);
             VoucherDetailFragment voucherDetailFragment = new VoucherDetailFragment();
@@ -226,6 +248,6 @@ public class TransactionFragment extends Fragment implements MyFloatingAction.Fl
             getFragmentManager().beginTransaction().replace(R.id.main_container,voucherDetailFragment)
                     .setCustomAnimations(R.anim.enter_from_left,R.anim.exit_to_right).commit();
 
-        }
+        }*/
     }
 }

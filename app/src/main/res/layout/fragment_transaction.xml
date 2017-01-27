@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/text_color_white"
     tools:context="com.adec.firebasestorekeeper.Navigation.TransactionFragment">
 
     <android.support.v7.widget.RecyclerView

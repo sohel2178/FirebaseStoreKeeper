@@ -18,6 +18,7 @@ import com.adec.firebasestorekeeper.AppUtility.Constant;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
 import com.adec.firebasestorekeeper.DetailFragment.EmployeeDetailFragment;
 import com.adec.firebasestorekeeper.DetailFragment.ManagerDetailFragment;
+import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Model.User;
 import com.adec.firebasestorekeeper.R;
 import com.adec.firebasestorekeeper.Utility.RefListenerPackage.MyEmployeeReferenceClass;
@@ -34,6 +35,7 @@ public class Employees extends Fragment implements
         ManagerAdapter.ManagerListener{
 
     private ActionBar actionBar;
+    private FragmentListener fragmentListener;
 
     private RecyclerView rvEmployee;
     private FloatingActionButton btnAdd;
@@ -57,6 +59,8 @@ public class Employees extends Fragment implements
 
         UserLocalStore userLocalStore = new UserLocalStore(getActivity());
         currentUser = userLocalStore.getUser();
+
+        fragmentListener = (FragmentListener) getActivity();
 
         if(currentUser.getUser_type()==0){
             myEmployeeReferenceClass = new MyEmployeeReferenceClass(currentUser.getId());
@@ -105,7 +109,12 @@ public class Employees extends Fragment implements
     @Override
     public void onResume() {
         super.onResume();
+        actionBar.show();
         actionBar.setTitle(Constant.EMPLOYEES);
+
+        if(fragmentListener!= null){
+            fragmentListener.getFragment(0);
+        }
     }
 
    /* @Override

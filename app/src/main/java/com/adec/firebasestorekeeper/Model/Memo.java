@@ -11,12 +11,12 @@ public class Memo extends Transaction implements Serializable {
 
 
 
-    public Memo(String id, String memo_voucher_id, String date, String product_name, int quantity, double unit_price, double total, String customer_id, double payment_amount, String sales_person_id, String payment_method, String remarks) {
-        super(id, memo_voucher_id, date, "", 1, product_name, quantity, unit_price, total, customer_id, "", payment_amount, sales_person_id, payment_method, remarks,System.currentTimeMillis());
+    public Memo(String id, String memo_voucher_id, String date, String product_name, int quantity, double unit_price, double total, String customer_id, double payment_amount, String sales_person_id, String payment_method, String remarks,String store_id) {
+        super(id, memo_voucher_id, date, "", 1, product_name, quantity, unit_price, total, customer_id, "", payment_amount, sales_person_id, payment_method, remarks,System.currentTimeMillis(),store_id);
     }
 
-    public Memo( String memo_voucher_id, String date, String product_name, int quantity, double unit_price, double total, String customer_id, double payment_amount, String sales_person_id, String payment_method, String remarks) {
-        super("", memo_voucher_id, date, "", 1, product_name, quantity, unit_price, total, customer_id, "", payment_amount, sales_person_id, payment_method, remarks,System.currentTimeMillis());
+    public Memo( String memo_voucher_id, String date, String product_name, int quantity, double unit_price, double total, String customer_id, double payment_amount, String sales_person_id, String payment_method, String remarks,String store_id) {
+        super("", memo_voucher_id, date, "", 1, product_name, quantity, unit_price, total, customer_id, "", payment_amount, sales_person_id, payment_method, remarks,System.currentTimeMillis(),store_id);
     }
 
     // A Empty Constructor

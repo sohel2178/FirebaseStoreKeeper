@@ -2,35 +2,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     tools:context="com.adec.firebasestorekeeper.Fragments.AddVoucher">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/add">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
-            <TextView
-                android:layout_marginTop="8dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:padding="5dp"
-                android:background="@drawable/text_view_back"
-                android:textColor="@color/colorPrimary"
-                android:text="Voucher"
-                android:textAllCaps="true"
-                android:id="@+id/title"
-                android:textSize="20sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_below="@+id/title">
+                android:orientation="vertical">
 
 
                 <RelativeLayout
@@ -71,7 +59,7 @@
                     android:hint="Voucher ID"
                     android:id="@+id/voucher_id"/>
 
-                <com.adec.firebasestorekeeper.CustomView.MyEditText
+                <com.adec.firebasestorekeeper.CustomView.MyAutoCompleteTextView
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -153,15 +141,7 @@
                     android:hint="Remarks"
                     android:id="@+id/remarks"/>
 
-                <Button
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="add"
-                    android:id="@+id/add"
-                    android:backgroundTint="@color/my_color"
-                    android:textColor="@color/text_color_white"/>
+
 
             </LinearLayout>
 
@@ -171,5 +151,16 @@
         </RelativeLayout>
 
     </ScrollView>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="add"
+        android:id="@+id/add"
+        android:layout_alignParentBottom="true"
+        android:background="@color/my_color"
+        android:textColor="@color/text_color_white"/>
 
 </RelativeLayout>

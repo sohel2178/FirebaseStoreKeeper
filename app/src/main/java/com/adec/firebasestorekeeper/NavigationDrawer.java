@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -191,15 +192,28 @@ public class NavigationDrawer extends Fragment implements View.OnClickListener {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
+
+               /* getView().setTranslationX(.3f * drawerView.getWidth());
+                mDrawerLayout.bringChildToFront(drawerView);
+                mDrawerLayout.requestLayout();*/
+
                 getActivity().invalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
-                //Log.d("Sohel","Offset "+slideOffset);
-                /*if(slideOffset<0.4){
-                    toolbar.setAlpha(1-slideOffset);
-                }*/
+
+                //Log.d("GGGG",slideOffset+"");
+
+/*
+                    getView().setTranslationX(slideOffset * drawerView.getWidth());
+                    mDrawerLayout.bringChildToFront(drawerView);
+                    mDrawerLayout.requestLayout();
+
+                super.onDrawerSlide(drawerView, slideOffset);*/
+
+
+
             }
         };
 
@@ -238,7 +252,7 @@ public class NavigationDrawer extends Fragment implements View.OnClickListener {
             case R.id.home:
                 mDrawerLayout.closeDrawer(Gravity.LEFT);
                 getFragmentManager().beginTransaction().replace(R.id.main_container,new HomeFragment())
-                        .setCustomAnimations(R.anim.enter_from_top,R.anim.exit_to_bottom).commit();
+                        .setCustomAnimations(R.anim.enter_from_top,R.anim.exit_to_bottom).addToBackStack(null).commit();
                 break;
 
             case R.id.profile:
@@ -246,7 +260,7 @@ public class NavigationDrawer extends Fragment implements View.OnClickListener {
 
                 mDrawerLayout.closeDrawer(Gravity.LEFT);
                 getFragmentManager().beginTransaction().replace(R.id.main_container,new ProfileFragment())
-                        .setCustomAnimations(R.anim.enter_from_top,R.anim.exit_to_bottom).commit();
+                        .setCustomAnimations(R.anim.enter_from_top,R.anim.exit_to_bottom).addToBackStack(null).commit();
 
 
                 break;
@@ -281,7 +295,7 @@ public class NavigationDrawer extends Fragment implements View.OnClickListener {
             case R.id.transaction:
                 mDrawerLayout.closeDrawer(Gravity.LEFT);
                 getFragmentManager().beginTransaction().replace(R.id.main_container,new TransactionFragment())
-                        .setCustomAnimations(R.anim.enter_from_top,R.anim.exit_to_bottom).commit();
+                        .setCustomAnimations(R.anim.enter_from_top,R.anim.exit_to_bottom).addToBackStack(null).commit();
                 break;
 
             case R.id.log_out:

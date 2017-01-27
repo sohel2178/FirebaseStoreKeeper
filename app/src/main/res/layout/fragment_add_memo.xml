@@ -2,20 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/text_color_white"
-    android:padding="10dp"
+    android:background="#ffeeee"
     tools:context="com.adec.firebasestorekeeper.Fragments.AddMemo">
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/add"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
 
             <LinearLayout
@@ -40,36 +41,33 @@
                         android:id="@+id/calendar"
                         android:text="{fa-calendar}"/>
 
-                    <EditText
+                    <com.adec.firebasestorekeeper.CustomView.MyEditText
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:layout_toLeftOf="@+id/calendar"
                         android:inputType="text"
                         android:hint="Date"
                         android:focusable="false"
-                        android:background="@drawable/bottom_border_default"
                         android:paddingLeft="10dp"
                         android:layout_marginRight="5dp"
                         android:id="@+id/date"/>
 
                 </RelativeLayout>
 
-                <EditText
+                <com.adec.firebasestorekeeper.CustomView.MyEditText
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:inputType="text"
                     android:hint="Memo Number"
-                    android:background="@drawable/bottom_border_default"
                     android:paddingLeft="10dp"
                     android:id="@+id/memo_no"/>
 
-                <AutoCompleteTextView
+                <com.adec.firebasestorekeeper.CustomView.MyAutoCompleteTextView
                     android:layout_toLeftOf="@+id/sync"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:inputType="textEmailAddress"
+                    android:inputType="text"
                     android:hint="Product Name"
-                    android:background="@drawable/bottom_border_default"
                     android:paddingLeft="10dp"
                     android:layout_marginRight="5dp"
                     android:id="@+id/product_name"/>
@@ -77,30 +75,27 @@
 
 
 
-                <EditText
+                <com.adec.firebasestorekeeper.CustomView.MyEditText
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:inputType="number"
                     android:hint="Quantity"
-                    android:background="@drawable/bottom_border_default"
                     android:paddingLeft="10dp"
                     android:id="@+id/quantity"/>
 
-                <EditText
+                <com.adec.firebasestorekeeper.CustomView.MyEditText
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:inputType="numberDecimal"
                     android:hint="Unit Price"
-                    android:background="@drawable/bottom_border_default"
                     android:paddingLeft="10dp"
                     android:id="@+id/unit_price"/>
 
-                <EditText
+                <com.adec.firebasestorekeeper.CustomView.MyEditText
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:inputType="text"
                     android:hint="Total"
-                    android:background="@drawable/bottom_border_default"
                     android:paddingLeft="10dp"
                     android:layout_marginRight="5dp"
                     android:id="@+id/total"/>
@@ -111,13 +106,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <EditText
+                    <com.adec.firebasestorekeeper.CustomView.MyEditText
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:inputType="numberDecimal"
                         android:hint="Select Customer"
                         android:focusable="false"
-                        android:background="@drawable/bottom_border_default"
                         android:paddingLeft="10dp"
                         android:layout_toLeftOf="@+id/select_customer"
                         android:id="@+id/customer"/>
@@ -140,20 +134,18 @@
 
 
 
-                <EditText
+                <com.adec.firebasestorekeeper.CustomView.MyEditText
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:inputType="numberDecimal"
-                    android:background="@drawable/bottom_border_default"
                     android:paddingLeft="10dp"
                     android:hint="Payment"
                     android:id="@+id/payment"/>
 
-                <EditText
+                <com.adec.firebasestorekeeper.CustomView.MyEditText
                     android:layout_width="match_parent"
                     android:layout_centerVertical="true"
                     android:layout_height="48dp"
-                    android:background="@drawable/bottom_border_default"
                     android:paddingLeft="10dp"
                     android:hint="Payment Method"
                     android:inputType="text"
@@ -221,24 +213,18 @@
 
                 </android.support.v7.widget.RecyclerView>
 
-                <EditText
+                <com.adec.firebasestorekeeper.CustomView.MyEditText
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="100dp"
                     android:gravity="top"
-                    android:background="@drawable/bottom_border_default"
                     android:paddingLeft="10dp"
                     android:inputType="textMultiLine"
                     android:hint="Remarks"
                     android:id="@+id/remarks"/>
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="add"
-                    android:id="@+id/add"
-                    android:backgroundTint="@color/my_color"
-                    android:textColor="@color/text_color_white"/>
+
+
+
 
             </LinearLayout>
 
@@ -246,6 +232,17 @@
         </RelativeLayout>
 
     </ScrollView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="add"
+        android:id="@+id/add"
+        android:background="@color/my_color"
+        android:textColor="@color/text_color_white"
+        android:layout_alignParentBottom="true"/>
+
+
 
 
 </RelativeLayout>

@@ -22,6 +22,7 @@ import com.adec.firebasestorekeeper.AppUtility.Constant;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
 import com.adec.firebasestorekeeper.DetailFragment.StoreDetailFragment;
 import com.adec.firebasestorekeeper.DialogFragment.ManagerDialogFragment;
+import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Model.Store;
 import com.adec.firebasestorekeeper.Model.User;
 import com.adec.firebasestorekeeper.R;
@@ -42,6 +43,7 @@ public class AllStoreFragment extends Fragment implements MyStoreReferenceClass.
     private static final int DIALOG_REQUEST_CODE=13;
 
     private ActionBar actionBar;
+    private FragmentListener fragmentListener;
 
     private RecyclerView rvStore;
     private List<Store> storeList;
@@ -67,6 +69,8 @@ public class AllStoreFragment extends Fragment implements MyStoreReferenceClass.
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+
+        fragmentListener = (FragmentListener) getActivity();
 
         UserLocalStore userLocalStore = new UserLocalStore(getActivity());
         user = userLocalStore.getUser();
@@ -107,8 +111,13 @@ public class AllStoreFragment extends Fragment implements MyStoreReferenceClass.
     @Override
     public void onResume() {
         super.onResume();
+        actionBar.show();
 
         actionBar.setTitle("Stores");
+
+        if(fragmentListener!= null){
+            fragmentListener.getFragment(0);
+        }
     }
 
     @Override

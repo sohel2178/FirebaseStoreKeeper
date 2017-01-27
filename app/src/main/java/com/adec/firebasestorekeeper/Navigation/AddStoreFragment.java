@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.adec.firebasestorekeeper.AppUtility.Constant;
+import com.adec.firebasestorekeeper.AppUtility.MyUtils;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
 import com.adec.firebasestorekeeper.CustomView.MyEditText;
 import com.adec.firebasestorekeeper.Model.Store;
@@ -105,6 +106,7 @@ public class AddStoreFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
+        MyUtils.hideKey(view);
         switch (view.getId()){
             case R.id.add:
                 String storeName= etStoreName.getText().toString().trim();

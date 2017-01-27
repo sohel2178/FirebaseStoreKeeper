@@ -17,6 +17,7 @@ import com.adec.firebasestorekeeper.Adapter.CustomerAdapter;
 import com.adec.firebasestorekeeper.AppUtility.Constant;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
 import com.adec.firebasestorekeeper.DetailFragment.CustomerDetailFragment;
+import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Model.Customer;
 import com.adec.firebasestorekeeper.Model.User;
 import com.adec.firebasestorekeeper.R;
@@ -44,6 +45,8 @@ public class AllCustomersFragment extends Fragment implements MyCustomerReferenc
 
     private MyCustomerReferenceClass myCustomerReferenceClass;
 
+    private FragmentListener fragmentListener;
+
 
     public AllCustomersFragment() {
         // Required empty public constructor
@@ -61,6 +64,8 @@ public class AllCustomersFragment extends Fragment implements MyCustomerReferenc
         // Listen All Customer from the Database Reference
         UserLocalStore userLocalStore = new UserLocalStore(getActivity());
         currentUser = userLocalStore.getUser();
+
+        fragmentListener = (FragmentListener) getActivity();
 
         // Set Customer Reference as per User Type
         if(currentUser.getUser_type()==0){
@@ -98,6 +103,10 @@ public class AllCustomersFragment extends Fragment implements MyCustomerReferenc
         super.onResume();
         actionBar.setTitle(Constant.ALL_CUSTOMERS);
         actionBar.show();
+
+        if(fragmentListener!= null){
+            fragmentListener.getFragment(0);
+        }
 
     }
 

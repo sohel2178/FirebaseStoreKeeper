@@ -1,13 +1,181 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.adec.firebasestorekeeper.DetailFragment.ManagerDetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="48dp"
+        android:elevation="6dp"
+        android:id="@+id/top"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorPrimary">
 
-</FrameLayout>
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:padding="8dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:layout_centerVertical="true"
+            android:src="@drawable/close"
+            android:clickable="true"
+            android:id="@+id/close"
+            android:background="@drawable/custom_bg"/>
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:padding="8dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/tick"
+            android:clickable="true"
+            android:id="@+id/tick"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:background="@drawable/custom_bg"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_below="@+id/top">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:id="@+id/image"
+            android:src="@drawable/placeholder"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"/>
+
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/person"
+            android:id="@+id/icon_name"
+            android:layout_below="@+id/image"
+            android:padding="12dp"/>
+
+        <com.adec.firebasestorekeeper.CustomView.MyEditText
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginLeft="-42dp"
+            android:paddingLeft="48dp"
+            android:textSize="12sp"
+            android:id="@+id/name"
+            android:focusable="false"
+            android:layout_toRightOf="@+id/icon_name"
+            android:layout_below="@+id/image"
+            android:hint="Name"/>
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/my_mail"
+            android:id="@+id/icon_email"
+            android:layout_below="@+id/icon_name"
+            android:padding="12dp"/>
+
+        <com.adec.firebasestorekeeper.CustomView.MyEditText
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginLeft="-42dp"
+            android:paddingLeft="48dp"
+            android:textSize="12sp"
+            android:id="@+id/email"
+            android:focusable="false"
+            android:layout_toRightOf="@+id/icon_email"
+            android:layout_below="@+id/icon_name"
+            android:hint="Email"/>
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/mobile"
+            android:id="@+id/icon_contact"
+            android:layout_below="@+id/icon_email"
+            android:padding="12dp"/>
+
+        <com.adec.firebasestorekeeper.CustomView.MyEditText
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginLeft="-42dp"
+            android:paddingLeft="48dp"
+            android:textSize="12sp"
+            android:id="@+id/contact"
+            android:focusable="false"
+            android:layout_toRightOf="@+id/icon_contact"
+            android:layout_below="@+id/icon_email"
+            android:hint="Contact"/>
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/address"
+            android:id="@+id/icon_address"
+            android:layout_below="@+id/icon_contact"
+            android:padding="12dp"/>
+
+        <com.adec.firebasestorekeeper.CustomView.MyEditText
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginLeft="-42dp"
+            android:paddingLeft="48dp"
+            android:textSize="12sp"
+            android:id="@+id/address"
+            android:focusable="false"
+            android:layout_toRightOf="@+id/icon_address"
+            android:layout_below="@+id/icon_contact"
+            android:hint="Address"/>
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/salary"
+            android:id="@+id/icon_salary"
+            android:layout_below="@+id/icon_address"
+            android:padding="12dp"/>
+
+        <com.adec.firebasestorekeeper.CustomView.MyEditText
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginLeft="-42dp"
+            android:paddingLeft="48dp"
+            android:textSize="12sp"
+            android:id="@+id/salary"
+            android:inputType="numberDecimal"
+            android:layout_toRightOf="@+id/icon_salary"
+            android:layout_below="@+id/icon_address"
+            android:hint="Salary"/>
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/refree"
+            android:id="@+id/icon_refer"
+            android:layout_below="@+id/icon_salary"
+            android:padding="12dp"/>
+
+        <com.adec.firebasestorekeeper.CustomView.MyEditText
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginLeft="-42dp"
+            android:paddingLeft="48dp"
+            android:textSize="12sp"
+            android:focusable="false"
+            android:id="@+id/referred_by"
+            android:layout_toRightOf="@+id/icon_refer"
+            android:layout_below="@+id/icon_salary"
+            android:hint="Referred By"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

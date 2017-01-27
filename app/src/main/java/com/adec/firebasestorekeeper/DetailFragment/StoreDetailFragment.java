@@ -148,7 +148,7 @@ public class StoreDetailFragment extends Fragment implements View.OnClickListene
     @Override
     public void onDetach() {
         super.onDetach();
-        actionBar.show();
+        //actionBar.show();
     }
 
     @Override

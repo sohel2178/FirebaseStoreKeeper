@@ -111,6 +111,7 @@ public class ManagerDialogFragment extends DialogFragment implements MyEmployeeR
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.cancel:
+                getDialog().hide();
                 break;
 
             case R.id.ok:

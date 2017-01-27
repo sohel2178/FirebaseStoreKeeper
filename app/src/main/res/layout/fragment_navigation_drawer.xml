@@ -14,9 +14,10 @@
         android:background="@color/colorPrimary">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_marginStart="8dp"
             android:id="@+id/profile_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             />
 
         <TextView
@@ -44,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_info"
-        android:paddingLeft="12dp"
+        android:paddingLeft="4dp"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -62,7 +63,7 @@
                 android:text="@string/icon_home"
                 android:id="@+id/home_icon"
                 android:layout_centerVertical="true"
-                android:textColor="#333333"
+                android:textColor="#777777"
                 android:textSize="22sp" />
 
             <TextView
@@ -102,7 +103,7 @@
                 android:text="@string/icon_user"
                 android:id="@+id/profile_icon"
                 android:layout_centerVertical="true"
-                android:textColor="#333333"
+                android:textColor="#777777"
                 android:textSize="22sp" />
 
             <TextView
@@ -135,15 +136,13 @@
             android:visibility="gone"
             android:background="@drawable/custom_bg">
 
-            <com.joanzapata.iconify.widget.IconTextView
+            <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:gravity="center"
-                android:text="@string/icon_plus"
+                android:padding="8dp"
                 android:id="@+id/icon_store"
                 android:layout_centerVertical="true"
-                android:textColor="#333333"
-                android:textSize="22sp" />
+                android:src="@drawable/store"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -175,15 +174,14 @@
             android:visibility="gone"
             android:background="@drawable/custom_bg">
 
-            <com.joanzapata.iconify.widget.IconTextView
+            <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:gravity="center"
-                android:text="@string/icon_list"
+                android:padding="8dp"
                 android:id="@+id/plus_icon_view_man"
                 android:layout_centerVertical="true"
-                android:textColor="#333333"
-                android:textSize="22sp" />
+                android:src="@drawable/manager"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -214,15 +212,14 @@
             android:clickable="true"
             android:background="@drawable/custom_bg">
 
-            <com.joanzapata.iconify.widget.IconTextView
+            <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:gravity="center"
-                android:text="@string/icon_list"
+                android:padding="8dp"
                 android:id="@+id/icon_all_customers"
                 android:layout_centerVertical="true"
-                android:textColor="#333333"
-                android:textSize="22sp" />
+                android:src="@drawable/customers"
+                 />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -252,15 +249,13 @@
             android:clickable="true"
             android:background="@drawable/custom_bg">
 
-            <com.joanzapata.iconify.widget.IconTextView
+            <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:gravity="center"
-                android:text="@string/icon_list"
+                android:src="@drawable/salesman"
                 android:id="@+id/icon_employees"
-                android:layout_centerVertical="true"
-                android:textColor="#333333"
-                android:textSize="22sp" />
+                android:padding="8dp"
+                android:layout_centerVertical="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -291,15 +286,13 @@
             android:visibility="gone"
             android:background="@drawable/custom_bg">
 
-            <com.joanzapata.iconify.widget.IconTextView
+            <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:gravity="center"
-                android:text="@string/icon_log_out"
                 android:id="@+id/icon_transaction"
                 android:layout_centerVertical="true"
-                android:textColor="#333333"
-                android:textSize="22sp" />
+                android:src="@drawable/money_bag"
+                android:padding="8dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -336,7 +329,7 @@
                 android:text="@string/icon_log_out"
                 android:id="@+id/home_logout"
                 android:layout_centerVertical="true"
-                android:textColor="#333333"
+                android:textColor="#777777"
                 android:textSize="22sp" />
 
             <TextView

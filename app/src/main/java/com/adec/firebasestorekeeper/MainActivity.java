@@ -1,5 +1,6 @@
 package com.adec.firebasestorekeeper;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,11 +12,17 @@ import android.util.Log;
 import android.view.Gravity;
 
 import com.adec.firebasestorekeeper.AppUtility.Constant;
+import com.adec.firebasestorekeeper.AppUtility.MyAlert;
+import com.adec.firebasestorekeeper.AppUtility.MyFloatingAction;
 import com.adec.firebasestorekeeper.AppUtility.MyUtils;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
+import com.adec.firebasestorekeeper.Fragments.AddMemo;
+import com.adec.firebasestorekeeper.Fragments.AddVoucher;
+import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Interface.NavDrawerListener;
 import com.adec.firebasestorekeeper.Model.User;
 import com.adec.firebasestorekeeper.Navigation.HomeFragment;
+import com.adec.firebasestorekeeper.Navigation.TransactionFragment;
 import com.adec.firebasestorekeeper.Navigation.UpdateProfileFragment;
 import com.adec.firebasestorekeeper.Utility.MyDatabaseReference;
 import com.adec.firebasestorekeeper.Utility.RefListenerPackage.MyUserReferenceClass;
@@ -24,7 +31,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
-public class MainActivity extends AppCompatActivity implements MyUserReferenceClass.UserReferenceListener,NavDrawerListener{
+public class MainActivity extends AppCompatActivity implements MyUserReferenceClass.UserReferenceListener,NavDrawerListener,
+        FragmentListener{
 
     private Toolbar toolbar;
     private DrawerLayout mDrawerLayout;
@@ -33,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements MyUserReferenceCl
     private UserLocalStore userLocalStore;
 
     private NavigationDrawer drawerFragment;
+
+    private MyFloatingAction myFloatingAction;
+
 
 
 
@@ -58,12 +69,48 @@ public class MainActivity extends AppCompatActivity implements MyUserReferenceCl
 
 
 
+
+
+
+
         if(userLocalStore.getUserLoggedIn()){
             getSupportFragmentManager().beginTransaction().replace(R.id.main_container,new HomeFragment()).commit();
 
 
             // Set Navigation Drawer
             setUpNavigationDrawer();
+
+
+            myFloatingAction = new MyFloatingAction(this);
+
+            myFloatingAction.setFloatingActionMenuListener(new MyFloatingAction.FloatingActionMenuListener() {
+                @Override
+                public void buttonClick(int buttonNumber) {
+
+                    switch (buttonNumber){
+                        case 1:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.main_container,new AddVoucher())
+                                    .addToBackStack(null).commit();
+
+                            break;
+
+                        case 2:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.main_container,new AddMemo())
+                                    .addToBackStack(null).commit();
+
+                            break;
+
+                        case 3:
+                            break;
+                    }
+
+                }
+            });
+
+
+
+
+
 
 
            /* MyDatabaseReference myDatabaseReference = new MyDatabaseReference();
@@ -100,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements MyUserReferenceCl
     @Override
     protected void onResume() {
         super.onResume();
+
 
     }
 
@@ -161,6 +209,33 @@ public class MainActivity extends AppCompatActivity implements MyUserReferenceCl
     }
 
     @Override
+    public void onBackPressed() {
+        /*for(int entry = 0; entry < getFragmentManager().getBackStackEntryCount(); entry++){
+            Log.i("Sohel", "Found fragment: " + getFragmentManager().getBackStackEntryAt(entry).getId());
+        }*/
+
+        int backCount =getSupportFragmentManager().getBackStackEntryCount();
+
+        if(backCount==0){
+            MyAlert alert = new MyAlert(this,"","Click No to stay in the App");
+            alert.setMyDialogClick(new MyAlert.MyDialogClick() {
+                @Override
+                public void positiveClick(DialogInterface dialog) {
+                    dialog.dismiss();
+
+                    MainActivity.super.onBackPressed();
+                    //return;
+                }
+            });
+        }else{
+            super.onBackPressed();
+        }
+
+
+
+    }
+
+    @Override
     public void setName(String name) {
        drawerFragment.setUserName(name);
     }
@@ -174,4 +249,24 @@ public class MainActivity extends AppCompatActivity implements MyUserReferenceCl
     public void setProfileImage(String url) {
         drawerFragment.setUserImage(url);
     }
+
+    @Override
+    public void getFragment(int number) {
+        Log.d("HHHH",number+"");
+
+        if(number==10){
+
+            myFloatingAction.show();
+        }else{
+
+            myFloatingAction.hide();
+
+
+
+
+
+        }
+    }
+
+
 }

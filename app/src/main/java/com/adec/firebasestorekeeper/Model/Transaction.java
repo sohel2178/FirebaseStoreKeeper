@@ -25,12 +25,13 @@ public class Transaction implements Serializable{
     private String payment_method;
     private String remarks;
     private long insert_date;
+    private String store_id;
 
     public Transaction() {
     }
 
 
-    public Transaction(String id, String memo_voucher_id, String date, String expenditure_head, int type, String product_name, int quantity, double unit_price, double total, String customer_id, String pay_to, double payment_amount, String sales_person_id, String payment_method,  String remarks,long insert_date) {
+    public Transaction(String id, String memo_voucher_id, String date, String expenditure_head, int type, String product_name, int quantity, double unit_price, double total, String customer_id, String pay_to, double payment_amount, String sales_person_id, String payment_method,  String remarks,long insert_date,String store_id) {
         this.id = id;
         this.memo_voucher_id = memo_voucher_id;
         this.date = date;
@@ -47,6 +48,7 @@ public class Transaction implements Serializable{
         this.payment_method = payment_method;
         this.remarks = remarks;
         this.insert_date=insert_date;
+        this.store_id = store_id;
     }
 
     public String getExpenditure_head() {
@@ -178,5 +180,13 @@ public class Transaction implements Serializable{
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public String getStore_id() {
+        return store_id;
+    }
+
+    public void setStore_id(String store_id) {
+        this.store_id = store_id;
     }
 }

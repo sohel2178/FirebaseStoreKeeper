@@ -34,7 +34,9 @@ import com.adec.firebasestorekeeper.Adapter.ImageAdapter;
 import com.adec.firebasestorekeeper.AppUtility.MarshMallowPermission;
 import com.adec.firebasestorekeeper.AppUtility.MyUtils;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
+import com.adec.firebasestorekeeper.CustomView.MyAutoCompleteTextView;
 import com.adec.firebasestorekeeper.CustomView.MyEditText;
+import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Model.Voucher;
 import com.adec.firebasestorekeeper.Navigation.AllCustomersFragment;
 import com.adec.firebasestorekeeper.Navigation.TransactionFragment;
@@ -67,10 +69,14 @@ public class AddVoucher extends Fragment implements View.OnClickListener,Activit
         ImageAdapter.AttachmentListener{
     private ActionBar actionBar;
 
+    private FragmentListener fragmentListener;
+
     private static final int REQUEST_CAMERA = 0;
 
-    private MyEditText etVoucherNumber,etHead,etPayto,etAmount,etPaymentMethod,etDate,etRemarks;
+    private MyEditText etVoucherNumber,etPayto,etAmount,etPaymentMethod,etDate,etRemarks;
     private IconTextView itvCalendar,itvAttach,itvCamera;
+
+    private MyAutoCompleteTextView acHead;
 
     private RecyclerView rvAttachments;
     private List<Bitmap> bitmapList;
@@ -96,6 +102,8 @@ public class AddVoucher extends Fragment implements View.OnClickListener,Activit
 
     private String transaction_id;
 
+    private String store_id;
+
 
 
 
@@ -109,9 +117,11 @@ public class AddVoucher extends Fragment implements View.OnClickListener,Activit
 
         actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
 
+        fragmentListener = (FragmentListener) getActivity();
+
 
         UserLocalStore userLocalStore = new UserLocalStore(getActivity());
-        String store_id = userLocalStore.getUser().getAssign_store_id();
+        store_id = userLocalStore.getUser().getAssign_store_id();
 
         final MyDatabaseReference myDatabaseReference = new MyDatabaseReference();
 
@@ -174,6 +184,12 @@ public class AddVoucher extends Fragment implements View.OnClickListener,Activit
         View view= inflater.inflate(R.layout.fragment_add_voucher, container, false);
 
 
+
+        for(int entry = 0; entry < getFragmentManager().getBackStackEntryCount(); entry++){
+            Log.i("Sohel", "Found fragment: " + getFragmentManager().getBackStackEntryAt(entry).getId());
+        }
+
+
         initView(view);
         return view;
     }
@@ -182,16 +198,21 @@ public class AddVoucher extends Fragment implements View.OnClickListener,Activit
     public void onResume() {
         super.onResume();
         actionBar.setTitle("Voucher Entry Form");
+
+        if(fragmentListener!= null){
+            fragmentListener.getFragment(0);
+        }
     }
 
     private void initView(View view) {
         etVoucherNumber = (MyEditText) view.findViewById(R.id.voucher_id);
-        etHead = (MyEditText) view.findViewById(R.id.exp_head);
         etPayto = (MyEditText) view.findViewById(R.id.pay_to);
         etAmount = (MyEditText) view.findViewById(R.id.amount);
         etPaymentMethod = (MyEditText) view.findViewById(R.id.payment_method);
         etDate = (MyEditText) view.findViewById(R.id.date);
         etRemarks = (MyEditText) view.findViewById(R.id.remarks);
+
+        acHead = (MyAutoCompleteTextView) view.findViewById(R.id.exp_head);
 
         itvCalendar = (IconTextView) view.findViewById(R.id.calendar);
         itvAttach = (IconTextView) view.findViewById(R.id.attachment);
@@ -274,7 +295,7 @@ public class AddVoucher extends Fragment implements View.OnClickListener,Activit
 
                 String date = etDate.getText().toString().trim();
                 String voucher_no = etVoucherNumber.getText().toString().trim();
-                String head = etHead.getText().toString().trim();
+                String head = acHead.getText().toString().trim();
                 String payTo = etPayto.getText().toString().trim();
                 String amount = etAmount.getText().toString().trim();
                 String paymentMethod = etPaymentMethod.getText().toString().trim();
@@ -293,8 +314,10 @@ public class AddVoucher extends Fragment implements View.OnClickListener,Activit
                     return;
                 }
 
-                Voucher voucher = new Voucher(voucher_no,date,head,payTo,Double.parseDouble(amount),paymentMethod,remarks);
+                Voucher voucher = new Voucher(voucher_no,date,head,payTo,Double.parseDouble(amount),paymentMethod,remarks,store_id);
+                Log.d("StoreID",store_id);
                 dialog.show();
+
                 postDatatotheServer(voucher);
 
 

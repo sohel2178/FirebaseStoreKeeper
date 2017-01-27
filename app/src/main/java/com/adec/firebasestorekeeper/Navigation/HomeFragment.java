@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.adec.firebasestorekeeper.AppUtility.Constant;
+import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.R;
 
 /**
@@ -19,6 +20,8 @@ import com.adec.firebasestorekeeper.R;
 public class HomeFragment extends Fragment {
 
     private ActionBar actionBar;
+
+    private FragmentListener fragmentListener;
 
 
     public HomeFragment() {
@@ -30,6 +33,8 @@ public class HomeFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+
+        fragmentListener = (FragmentListener) getActivity();
     }
 
     @Override
@@ -51,5 +56,10 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         actionBar.setTitle(Constant.HOME);
+        actionBar.show();
+
+        if(fragmentListener!= null){
+            fragmentListener.getFragment(0);
+        }
     }
 }

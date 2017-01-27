@@ -1,7 +1,9 @@
 package com.adec.firebasestorekeeper.AppUtility;
 
 import android.app.Activity;
-import android.app.FragmentManager;import android.support.v4.content.res.ResourcesCompat;
+import android.app.FragmentManager;
+import android.content.Context;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -30,7 +32,7 @@ public class MyFloatingAction {
         manager=activity.getFragmentManager();
 
         ImageView icon = new ImageView(activity); // Create an icon
-        icon.setImageDrawable(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.plus,null));
+        icon.setImageDrawable(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.doller,null));
 
         actionButton = new FloatingActionButton.Builder(activity)
                 .setContentView(icon)
@@ -95,6 +97,10 @@ public class MyFloatingAction {
     public void hide(){
         actionMenu.close(true);
         actionButton.setVisibility(View.GONE);
+    }
+
+    public void show(){
+        actionButton.setVisibility(View.VISIBLE);
     }
 
 
