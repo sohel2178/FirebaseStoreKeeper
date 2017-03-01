@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.adec.firebasestorekeeper.DetailFragment.ImageDetailFragment">
+
+    <RelativeLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:elevation="6dp"
+        android:id="@+id/top"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:padding="4dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/close"
+            android:clickable="true"
+            android:id="@+id/close"
+            android:background="@drawable/custom_bg"/>
+
+    </RelativeLayout>
+
+    <com.adec.firebasestorekeeper.CustomView.ZoomableImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top"
+        android:id="@+id/image"
+        android:scaleType="centerCrop"/>
+
+</RelativeLayout>

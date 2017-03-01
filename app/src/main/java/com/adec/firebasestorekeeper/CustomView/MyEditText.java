@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
 
+import com.adec.firebasestorekeeper.CustomListener.MyChangeListener;
 import com.adec.firebasestorekeeper.R;
 
 
@@ -14,10 +15,15 @@ import com.adec.firebasestorekeeper.R;
  */
 public class MyEditText extends EditText implements View.OnFocusChangeListener {
     private Context context;
+    private MyChangeListener listener;
 
     public MyEditText(Context context) {
         super(context);
 
+    }
+
+    public void setMyChangeListener(MyChangeListener listener){
+        this.listener =listener;
     }
 
     public MyEditText(Context context, AttributeSet attrs) {
@@ -40,6 +46,15 @@ public class MyEditText extends EditText implements View.OnFocusChangeListener {
             view.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.bottom_border_selected,null));
         }else{
             view.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.bottom_border_default,null));
+        }
+    }
+
+    @Override
+    public void setText(CharSequence text, BufferType type) {
+        super.setText(text, type);
+
+        if(listener!= null){
+            listener.textChange(this.getText().toString());
         }
     }
 }

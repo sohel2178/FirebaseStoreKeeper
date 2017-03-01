@@ -47,7 +47,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment implements View.OnClickListener{
     private static final int PICTURE_REQUEST=14;
 
-    private ActionBar actionBar;
 
     private MyEditText etName,etEmail,etContact,etAddress;
     //private TextView txtName,txtEmail,txtContact,txtAddress;
@@ -73,7 +72,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
 
     private String name,email,contact,address;
 
-    private FragmentListener fragmentListener;
+    private ActionBar actionBar;
+    private FragmentListener listener;
 
 
     public ProfileFragment() {
@@ -83,13 +83,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        //actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        listener = (FragmentListener) getActivity();
 
         userLocalStore = new UserLocalStore(getActivity());
         currentUser = userLocalStore.getUser();
-
-        fragmentListener = (FragmentListener) getActivity();
 
         myDatabaseReference = new MyDatabaseReference();
 
@@ -125,6 +123,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
 
 
                 Toast.makeText(getActivity(), "User Updated Successfully", Toast.LENGTH_SHORT).show();
+
+
 
             }
         };
@@ -293,11 +293,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onResume() {
         super.onResume();
-        actionBar.hide();
-
-        if(fragmentListener!= null){
-            fragmentListener.getFragment(0);
-        }
+        //actionBar.hide();
+        listener.getFragment(1);
     }
 
 

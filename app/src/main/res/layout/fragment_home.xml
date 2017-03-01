@@ -1,13 +1,67 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.adec.firebasestorekeeper.Navigation.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:id="@+id/top">
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/dashboard"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:clickable="true"
+            android:text="@string/icon_home"
+            android:textColor="@color/text_color_white"
+            android:textSize="18sp" />
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/transaction"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/icon_doller"
+            android:textColor="@color/text_color_white"
+            android:textSize="18sp" />
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/report"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/icon_report"
+            android:textColor="@color/text_color_white"
+            android:textSize="18sp" />
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/notification"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/icon_notification"
+            android:textColor="@color/text_color_white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/sub_container"
+        android:layout_below="@+id/top">
 
-</FrameLayout>
+    </FrameLayout>
+
+</RelativeLayout>

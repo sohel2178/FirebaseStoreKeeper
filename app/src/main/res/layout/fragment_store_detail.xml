@@ -43,6 +43,7 @@
         android:layout_below="@+id/top">
 
         <ImageView
+            android:padding="3dp"
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:adjustViewBounds="true"

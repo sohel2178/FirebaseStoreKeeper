@@ -19,6 +19,7 @@ import com.adec.firebasestorekeeper.AppUtility.Constant;
 import com.adec.firebasestorekeeper.AppUtility.MyUtils;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
 import com.adec.firebasestorekeeper.CustomView.MyEditText;
+import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Model.Store;
 import com.adec.firebasestorekeeper.Model.User;
 import com.adec.firebasestorekeeper.R;
@@ -40,7 +41,7 @@ public class AddStoreFragment extends Fragment implements View.OnClickListener{
 
     private ProgressDialog dialog;
 
-    private ActionBar actionBar;
+    private FragmentListener fragmentListener;
 
 
     public AddStoreFragment() {
@@ -51,7 +52,8 @@ public class AddStoreFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+
+        fragmentListener = (FragmentListener) getActivity();
 
         userLocalStore= new UserLocalStore(getActivity());
         MyDatabaseReference myDatabaseReference = new MyDatabaseReference();
@@ -101,7 +103,9 @@ public class AddStoreFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onResume() {
         super.onResume();
-        actionBar.setTitle(Constant.ADD_STORE);
+        if(fragmentListener!= null){
+            fragmentListener.getFragment(21);
+        }
     }
 
     @Override
@@ -168,8 +172,6 @@ public class AddStoreFragment extends Fragment implements View.OnClickListener{
 
         getFragmentManager().popBackStack();
 
-        getFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left,R.anim.exit_to_right)
-                .replace(R.id.main_container,new AllStoreFragment()).commit();
     }
 
 

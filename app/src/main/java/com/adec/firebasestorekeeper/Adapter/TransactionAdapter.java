@@ -3,14 +3,22 @@ package com.adec.firebasestorekeeper.Adapter;
 import android.content.Context;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adec.firebasestorekeeper.AppUtility.MyUtils;
 import com.adec.firebasestorekeeper.Model.Transaction;
 import com.adec.firebasestorekeeper.R;
+import com.adec.firebasestorekeeper.Utility.MyDatabaseReference;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -26,11 +34,20 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     private TransactionListener listener;
 
+    private ValueEventListener valueEventListener;
+    private DatabaseReference attachmentRef;
+
 
     public TransactionAdapter(Context context, List<Transaction> transactionList) {
         this.context = context;
         this.transactionList = transactionList;
         this.inflater = LayoutInflater.from(context);
+
+    }
+
+    public void clearAll(){
+        transactionList.clear();
+        notifyDataSetChanged();
     }
 
     @Override
@@ -42,7 +59,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     }
 
     @Override
-    public void onBindViewHolder(TransactionHolder holder, int position) {
+    public void onBindViewHolder(final TransactionHolder holder, int position) {
 
         Transaction transaction = transactionList.get(position);
 
@@ -61,6 +78,29 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             holder.tvPayToOrCustomer.setText(transaction.getProduct_name());
         }
 
+        MyDatabaseReference myDatabaseReference = new MyDatabaseReference();
+        attachmentRef = myDatabaseReference.getAttachmentRererence(transaction.getId());
+        valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot x : dataSnapshot.getChildren()){
+                    String url = x.getValue(String.class);
+                    Picasso.with(context).load(url).into(holder.ivImage);
+                    break;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        attachmentRef.addListenerForSingleValueEvent(valueEventListener);
+
+
+
     }
 
     public void addTransaction(Transaction transaction){
@@ -76,6 +116,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     public class TransactionHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView tvDate,tvVoucherMemoId,tvPaymentAmountOrTotal,tvPayToOrCustomer;
+        ImageView ivImage;
 
         public TransactionHolder(View itemView) {
             super(itemView);
@@ -84,6 +125,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             tvPayToOrCustomer = (TextView) itemView.findViewById(R.id.pay_to_or_customer);
             tvPaymentAmountOrTotal = (TextView) itemView.findViewById(R.id.payment_amount_or_total);
             tvVoucherMemoId = (TextView) itemView.findViewById(R.id.voucher_memo_id);
+
+            ivImage = (ImageView) itemView.findViewById(R.id.image);
 
             itemView.setOnClickListener(this);
         }
@@ -97,6 +140,16 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         }
     }
+
+    public void removeAttachmentListener(){
+
+        if(attachmentRef != null && valueEventListener!=null){
+            attachmentRef.removeEventListener(valueEventListener);
+        }
+
+    }
+
+
 
 
     public void setTransactionListener(TransactionListener listener){

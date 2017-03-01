@@ -8,7 +8,7 @@
         android:layout_height="60dp"
         android:padding="4dp"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         android:src="@drawable/store_place_holder"
         android:layout_marginRight="10dp"
         android:id="@+id/image"/>

@@ -1,0 +1,139 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.adec.firebasestorekeeper.Fragments.Report.WeeklyReportFragment">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weekly Report"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Select Year"/>
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/year_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Select Week"/>
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/week_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+
+       <!-- <ImageView
+            android:id="@+id/previous"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/custom_bg"
+            android:src="@drawable/previous" />
+
+        <ImageView
+            android:id="@+id/next"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/custom_bg"
+            android:src="@drawable/next" />-->
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:src="@drawable/container_divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/store_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="Outlet"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/sales"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sales"
+            android:textColor="@color/color_green"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/due"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Due"
+            android:textColor="@color/dark_red"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/expense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Expense"
+            android:textColor="@color/my_color"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:src="@drawable/divider" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_store"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

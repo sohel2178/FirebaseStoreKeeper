@@ -13,7 +13,9 @@
     <string name="icon_camera">{fa-camera}</string>
     <string name="icon_user">{fa-user}</string>
     <string name="icon_log_out">{fa-sign-out}</string>
-    <string name="icon_notification">{fa-bell-o}</string>
+    <string name="icon_notification">{fa-bell}</string>
+    <string name="icon_doller">{fa-usd}</string>
+    <string name="icon_report">{fa-flag}</string>
     <string name="icon_message">{fa-envelope-o}</string>
     <string name="icon_quiz">{fa-comment-o}</string>
     <string name="icon_globe">{fa-globe}</string>
@@ -55,4 +57,11 @@
     <string name="employees">Employees</string>
     <string name="transaction">Transaction</string>
     <string name="stores">Stores</string>
+
+    <string-array name="payment_method">
+        <item>Cash</item>
+        <item>Cheque</item>
+        <item>BCash</item>
+
+    </string-array>
 </resources>

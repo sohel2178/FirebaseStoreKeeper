@@ -23,6 +23,8 @@ public class MyTransactionReferenceClass {
     private DatabaseReference myRef;
     private String store_id;
 
+    private ChildEventListener childEventListener;
+
     private TransactionReferenceListener listener;
     private List<Transaction> transactionList;
 
@@ -66,23 +68,14 @@ public class MyTransactionReferenceClass {
 
 
     public void triggerChildEvent(){
-        myRef.addChildEventListener(new ChildEventListener() {
+
+        childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Transaction transaction = dataSnapshot.getValue(Transaction.class);
-
-
                 if(listener!= null){
                     listener.addTransaction(transaction);
                 }
-
-               /* if(!transactionList.contains(transaction)){
-                    transactionList.add(transaction);
-
-                    if(listener!= null){
-                        listener.addTransaction(transaction);
-                    }
-                }*/
             }
 
             @Override
@@ -104,7 +97,13 @@ public class MyTransactionReferenceClass {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        };
+
+        myRef.addChildEventListener(childEventListener);
+    }
+
+    public void removeListener(){
+        myRef.removeEventListener(childEventListener);
     }
 
     /*private boolean isExist(Transaction transaction){

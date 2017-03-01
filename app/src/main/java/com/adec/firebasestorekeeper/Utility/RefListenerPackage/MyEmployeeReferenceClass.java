@@ -17,13 +17,15 @@ public class MyEmployeeReferenceClass {
     private DatabaseReference employeeRef;
     private EmployeeReferenceListener listener;
 
+    private ValueEventListener valueEventListener;
+
 
     public MyEmployeeReferenceClass(String ownerId) {
         MyDatabaseReference myDatabaseReference = new MyDatabaseReference();
 
         employeeRef = myDatabaseReference.getEmployeeReference(ownerId);
 
-        employeeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot x: dataSnapshot.getChildren()){
@@ -40,12 +42,37 @@ public class MyEmployeeReferenceClass {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        };
+
+        employeeRef.addListenerForSingleValueEvent(valueEventListener);
+
+       /* employeeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot x: dataSnapshot.getChildren()){
+                    User user = x.getValue(User.class);
+
+                    if(listener!=null){
+                        listener.getEmployee(user);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
 
     }
 
     public void setEmployeeReferenceListener(EmployeeReferenceListener listener){
         this.listener=listener;
+    }
+
+    public void removeReference(){
+        employeeRef.removeEventListener(valueEventListener);
     }
 
     public interface EmployeeReferenceListener{

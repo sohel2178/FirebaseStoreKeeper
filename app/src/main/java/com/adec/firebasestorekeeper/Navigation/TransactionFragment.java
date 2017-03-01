@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adec.firebasestorekeeper.Adapter.TransactionAdapter;
@@ -24,6 +25,7 @@ import com.adec.firebasestorekeeper.AppUtility.Constant;
 import com.adec.firebasestorekeeper.AppUtility.MyFloatingAction;
 import com.adec.firebasestorekeeper.AppUtility.MyUtils;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
+import com.adec.firebasestorekeeper.DetailFragment.DetailTransactionFragment;
 import com.adec.firebasestorekeeper.DetailFragment.VoucherDetailFragment;
 import com.adec.firebasestorekeeper.Fragments.AddMemo;
 import com.adec.firebasestorekeeper.Fragments.AddVoucher;
@@ -40,17 +42,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import rx.Observable;
+import rx.Subscription;
+import rx.functions.Action1;
+import rx.functions.Func1;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TransactionFragment extends Fragment implements
-        MyTransactionReferenceClass.TransactionReferenceListener,TransactionAdapter.TransactionListener{
+        MyTransactionReferenceClass.TransactionReferenceListener,TransactionAdapter.TransactionListener,
+        View.OnClickListener{
 
-    private ActionBar actionBar;
     private RecyclerView rvTransaction;
 
+    private List<Transaction> allList;
     private List<Transaction> transactionList;
     private TransactionAdapter adapter;
+
+    private TextView tvAll,tvVoucher,tvMemo;
+
+    private int selectedButton=0;
 
    // private MyFloatingAction myFloatingAction;
 
@@ -73,7 +85,6 @@ public class TransactionFragment extends Fragment implements
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
 
         if(!MyUtils.isNetworkConnected(getActivity())){
             Toast.makeText(getActivity(), "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
@@ -85,12 +96,7 @@ public class TransactionFragment extends Fragment implements
         UserLocalStore userLocalStore = new UserLocalStore(getActivity());
         currentUser = userLocalStore.getUser();
 
-        myTransactionReferenceClass = new MyTransactionReferenceClass(currentUser.getAssign_store_id());
-        myTransactionReferenceClass.setTransactionReferenceListener(this);
 
-        transactionList = new ArrayList<>();
-        adapter = new TransactionAdapter(getActivity(),transactionList);
-        adapter.setTransactionListener(this);
 
     }
 
@@ -109,8 +115,20 @@ public class TransactionFragment extends Fragment implements
 
         rvTransaction = (RecyclerView) view.findViewById(R.id.rv_transaction);
         rvTransaction.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvTransaction.setAdapter(adapter);
 
+        tvAll= (TextView) view.findViewById(R.id.all);
+        tvVoucher= (TextView) view.findViewById(R.id.voucher);
+        tvMemo= (TextView) view.findViewById(R.id.memo);
+
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        tvAll.setOnClickListener(this);
+        tvVoucher.setOnClickListener(this);
+        tvMemo.setOnClickListener(this);
     }
 
     @Override
@@ -120,16 +138,32 @@ public class TransactionFragment extends Fragment implements
         myFloatingAction.setFloatingActionMenuListener(this);*/
 
         if(fragmentListener!= null){
-            fragmentListener.getFragment(10);
+            fragmentListener.getFragment(6);
         }
 
+        allList= new ArrayList<>();
 
-       /* if(currentUser.getUser_type()==0){
-            myFloatingAction.hide();
-        }*/
 
-        actionBar.setTitle("Transactions");
-        actionBar.show();
+        myTransactionReferenceClass = new MyTransactionReferenceClass(currentUser.getAssign_store_id());
+        myTransactionReferenceClass.setTransactionReferenceListener(this);
+
+        transactionList = new ArrayList<>();
+        adapter = new TransactionAdapter(getActivity(),transactionList);
+        adapter.setTransactionListener(this);
+        // Set Adapter in OnResume
+        rvTransaction.setAdapter(adapter);
+
+        setBackground(selectedButton);
+
+
+    }
+
+    @Override
+    public void onPause() {
+        adapter.removeAttachmentListener();
+        myTransactionReferenceClass.removeListener();
+        super.onPause();
+
     }
 
     private void buildFloatingActionMenu(){
@@ -180,40 +214,30 @@ public class TransactionFragment extends Fragment implements
         });
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-       /* myFloatingAction.hide();
-        myFloatingAction=null;*/
-    }
+    private void setBackground(int selectedButton){
+        setDefaultColor();
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.d("DETACH","Transaction Detached");
-    }
-
-   /* @Override
-    public void buttonClick(int buttonNumber) {
-        switch (buttonNumber){
+        switch (selectedButton){
+            case 0:
+                tvAll.setBackgroundColor(ResourcesCompat.getColor(getResources(),R.color.colorPrimaryDark,null));
+                break;
             case 1:
-                getFragmentManager().beginTransaction().replace(R.id.main_container,new AddVoucher())
-                        .addToBackStack(null).commit();
-
-                myFloatingAction.hide();
+                tvVoucher.setBackgroundColor(ResourcesCompat.getColor(getResources(),R.color.colorPrimaryDark,null));
                 break;
-
             case 2:
-                getFragmentManager().beginTransaction().replace(R.id.main_container,new AddMemo())
-                        .addToBackStack(null).commit();
-
-                myFloatingAction.hide();
-                break;
-
-            case 3:
+                tvMemo.setBackgroundColor(ResourcesCompat.getColor(getResources(),R.color.colorPrimaryDark,null));
                 break;
         }
-    }*/
+    }
+
+    private void setDefaultColor(){
+        tvAll.setBackgroundColor(ResourcesCompat.getColor(getResources(),R.color.colorPrimary,null));
+        tvVoucher.setBackgroundColor(ResourcesCompat.getColor(getResources(),R.color.colorPrimary,null));
+        tvMemo.setBackgroundColor(ResourcesCompat.getColor(getResources(),R.color.colorPrimary,null));
+    }
+
+
+
 
 
 
@@ -230,6 +254,7 @@ public class TransactionFragment extends Fragment implements
 
     @Override
     public void addTransaction(Transaction transaction) {
+        allList.add(transaction);
         adapter.addTransaction(transaction);
     }
 
@@ -237,17 +262,67 @@ public class TransactionFragment extends Fragment implements
     public void onClickTransaction(int position) {
         Transaction transaction = transactionList.get(position);
 
-        Toast.makeText(getActivity(), "Todo After Final Decision !!!!", Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constant.TRANSACTION,transaction);
+        DetailTransactionFragment detailTransactionFragment = new DetailTransactionFragment();
+        detailTransactionFragment.setArguments(bundle);
 
-        /*if(transaction.getType()==0){
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(Constant.TRANSACTION,transaction);
-            VoucherDetailFragment voucherDetailFragment = new VoucherDetailFragment();
-            voucherDetailFragment.setArguments(bundle);
+        getFragmentManager().beginTransaction().replace(R.id.main_container,detailTransactionFragment)
+                .addToBackStack(null).commitAllowingStateLoss();
 
-            getFragmentManager().beginTransaction().replace(R.id.main_container,voucherDetailFragment)
-                    .setCustomAnimations(R.anim.enter_from_left,R.anim.exit_to_right).commit();
 
-        }*/
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.all:
+                selectedButton=0;
+
+                break;
+            case R.id.voucher:
+                selectedButton=1;
+                break;
+            case R.id.memo:
+                selectedButton=2;
+                break;
+        }
+        setBackground(selectedButton);
+        doThat(selectedButton);
+    }
+
+    private void doThat(final int selectedButton){
+        transactionList.clear();
+        Subscription subscription = Observable.from(allList)
+                .filter(new Func1<Transaction, Boolean>() {
+                    @Override
+                    public Boolean call(Transaction transaction) {
+                        boolean bool= false;
+                        switch (selectedButton){
+                            case 0:
+                                bool=true;
+                                break;
+
+                            case 1:
+                                bool= (transaction.getType()==0);
+                                break;
+
+                            case 2:
+                                bool= (transaction.getType()==1);
+                                break;
+                        }
+
+                        return bool;
+
+                    }
+                }).subscribe(new Action1<Transaction>() {
+                    @Override
+                    public void call(Transaction transaction) {
+                        Log.d("SOHEL",transaction.getMemo_voucher_id());
+                        transactionList.add(transaction);
+                        Collections.reverse(transactionList);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +19,7 @@ import com.adec.firebasestorekeeper.AppUtility.MyUtils;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
 import com.adec.firebasestorekeeper.Fragments.AddMemo;
 import com.adec.firebasestorekeeper.Fragments.AddVoucher;
+import com.adec.firebasestorekeeper.Fragments.PaymentFragment;
 import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Interface.NavDrawerListener;
 import com.adec.firebasestorekeeper.Model.User;
@@ -43,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements MyUserReferenceCl
     private NavigationDrawer drawerFragment;
 
     private MyFloatingAction myFloatingAction;
+
+    private ActionBar actionBar;
+
+    private HomeFragment homeFragment;
 
 
 
@@ -74,8 +80,8 @@ public class MainActivity extends AppCompatActivity implements MyUserReferenceCl
 
 
         if(userLocalStore.getUserLoggedIn()){
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_container,new HomeFragment()).commit();
-
+            homeFragment = new HomeFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_container,homeFragment).commit();
 
             // Set Navigation Drawer
             setUpNavigationDrawer();
@@ -101,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements MyUserReferenceCl
                             break;
 
                         case 3:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.main_container,new PaymentFragment())
+                                    .addToBackStack(null).commit();
                             break;
                     }
 
@@ -147,6 +155,10 @@ public class MainActivity extends AppCompatActivity implements MyUserReferenceCl
     @Override
     protected void onResume() {
         super.onResume();
+
+        if(userLocalStore.getUserLoggedIn()){
+
+        }
 
 
     }
@@ -254,17 +266,84 @@ public class MainActivity extends AppCompatActivity implements MyUserReferenceCl
     public void getFragment(int number) {
         Log.d("HHHH",number+"");
 
-        if(number==10){
+        actionBar = getSupportActionBar();
+        actionBar.show();
 
+        switch (number){
+            case 0:
+                actionBar.setTitle("Home");
+                break;
+            case 1:
+                actionBar.hide();
+                break;
+
+            case 2:
+                actionBar.setTitle("Stores");
+                break;
+
+            case 21:
+                actionBar.setTitle("Create Store");
+                break;
+
+            case 22:
+                actionBar.hide();
+                break;
+
+            case 3:
+                actionBar.setTitle("Managers");
+                break;
+
+            case 31:
+                actionBar.setTitle("Create Manager");
+                break;
+
+            case 32:
+                actionBar.setTitle("Create Sales Man");
+                break;
+
+            case 4:
+                actionBar.setTitle(Constant.ALL_CUSTOMERS);
+                break;
+
+            case 41:
+                actionBar.setTitle(Constant.CREATE_CUSTOMER);
+                break;
+
+            case 42:
+                actionBar.hide();
+                break;
+
+            case 5:
+                actionBar.setTitle(Constant.EMPLOYEES);
+                break;
+
+            case 6:
+                actionBar.setTitle("Transaction");
+                break;
+
+            case 61:
+                actionBar.setTitle("Voucher Entry Form");
+                break;
+
+            case 62:
+                actionBar.setTitle("Memo Entry Form");
+                break;
+
+            case 64:
+                actionBar.setTitle("Payment Entry Form");
+                break;
+
+            case 63:
+                actionBar.hide();
+                break;
+        }
+
+
+        // For Floating Action Button
+        if(number==6){
             myFloatingAction.show();
         }else{
-
             myFloatingAction.hide();
-
-
-
-
-
         }
     }
 

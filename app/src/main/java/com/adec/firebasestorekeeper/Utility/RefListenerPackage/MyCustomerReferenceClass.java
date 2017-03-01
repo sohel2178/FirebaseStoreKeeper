@@ -17,39 +17,36 @@ import com.google.firebase.database.ValueEventListener;
 public class MyCustomerReferenceClass {
 
     private DatabaseReference myRef;
-
-
+    private ValueEventListener valueEventListener;
     private CustomerReferenceListener listener;
 
     public MyCustomerReferenceClass(String owner_id) {
         MyDatabaseReference myDatabaseReference = new MyDatabaseReference();
         this.myRef = myDatabaseReference.getCustomerRef(owner_id);
 
-        Log.d("GGGG",String.valueOf(myRef));
-
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot x: dataSnapshot.getChildren()){
+                    Customer customer = x.getValue(Customer.class);
 
-               // Log.d("TTTT",String.valueOf(dataSnapshot.getValue()));
-
-               for(DataSnapshot x: dataSnapshot.getChildren()){
-                   Customer customer = x.getValue(Customer.class);
-
-                   if(listener!=null){
-                       listener.getCustomer(customer);
-                   }
-
-               }
+                    if(listener!=null){
+                        listener.getCustomer(customer);
+                    }
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-                Log.d("TTTT",databaseError.getMessage());
-
             }
-        });
+        };
+
+        myRef.addListenerForSingleValueEvent(valueEventListener);
+    }
+
+    public void removeListener(){
+        myRef.removeEventListener(valueEventListener);
     }
 
     public void setCustomerReferenceListener(CustomerReferenceListener listener){

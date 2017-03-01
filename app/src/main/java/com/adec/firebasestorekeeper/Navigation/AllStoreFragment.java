@@ -42,7 +42,6 @@ public class AllStoreFragment extends Fragment implements MyStoreReferenceClass.
 
     private static final int DIALOG_REQUEST_CODE=13;
 
-    private ActionBar actionBar;
     private FragmentListener fragmentListener;
 
     private RecyclerView rvStore;
@@ -56,6 +55,7 @@ public class AllStoreFragment extends Fragment implements MyStoreReferenceClass.
     private User selectedManager;
     private String selected_store_id;
 
+    DatabaseReference storeRef;
     MyDatabaseReference myDatabaseReference;
 
     User user;
@@ -68,19 +68,12 @@ public class AllStoreFragment extends Fragment implements MyStoreReferenceClass.
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-
         fragmentListener = (FragmentListener) getActivity();
 
         UserLocalStore userLocalStore = new UserLocalStore(getActivity());
         user = userLocalStore.getUser();
         myDatabaseReference= new MyDatabaseReference();
-        DatabaseReference storeRef = myDatabaseReference.getStoreRef(user.getId());
-        MyStoreReferenceClass myStoreReferenceClass= new MyStoreReferenceClass(storeRef);
-        myStoreReferenceClass.setStoreReferenceListener(this);
-        storeList = new ArrayList<>();
-        adapter = new StoreAdapter(getActivity(),storeList);
-        adapter.setStoreListener(this);
+        storeRef = myDatabaseReference.getStoreRef(user.getId());
 
         dialog = new ProgressDialog(getActivity());
         dialog.setMessage("Please Wait while Loading Data...");
@@ -102,7 +95,6 @@ public class AllStoreFragment extends Fragment implements MyStoreReferenceClass.
 
         rvStore = (RecyclerView) view.findViewById(R.id.rvStores);
         rvStore.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvStore.setAdapter(adapter);
 
         fabAdd = (FloatingActionButton) view.findViewById(R.id.fab_add);
 
@@ -111,13 +103,19 @@ public class AllStoreFragment extends Fragment implements MyStoreReferenceClass.
     @Override
     public void onResume() {
         super.onResume();
-        actionBar.show();
-
-        actionBar.setTitle("Stores");
 
         if(fragmentListener!= null){
-            fragmentListener.getFragment(0);
+            fragmentListener.getFragment(2);
         }
+
+        // Data Listener
+        MyStoreReferenceClass myStoreReferenceClass= new MyStoreReferenceClass(storeRef);
+        myStoreReferenceClass.setStoreReferenceListener(this);
+        storeList = new ArrayList<>();
+        adapter = new StoreAdapter(getActivity(),storeList);
+        adapter.setStoreListener(this);
+
+        rvStore.setAdapter(adapter);
     }
 
     @Override

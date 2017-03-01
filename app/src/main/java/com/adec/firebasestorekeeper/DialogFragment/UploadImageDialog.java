@@ -38,7 +38,6 @@ import rx.functions.Func1;
 public class UploadImageDialog extends DialogFragment implements View.OnClickListener{
 
     private static final int REQUEST_CAMERA=20;
-    private static final int REQUEST_GALLERY=21;
 
     private IconTextView gallery,camera;
 

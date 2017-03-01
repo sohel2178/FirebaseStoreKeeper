@@ -21,6 +21,7 @@ import com.adec.firebasestorekeeper.AppUtility.MyUtils;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
 import com.adec.firebasestorekeeper.CustomView.MyEditText;
 import com.adec.firebasestorekeeper.DialogFragment.UploadImageDialog;
+import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Model.Store;
 import com.adec.firebasestorekeeper.Model.User;
 import com.adec.firebasestorekeeper.Navigation.AllStoreFragment;
@@ -42,7 +43,6 @@ import java.io.File;
 public class StoreDetailFragment extends Fragment implements View.OnClickListener{
     private static final int PICTURE_REQUEST=14;
     private ActionBar actionBar;
-
     private ImageView ivClose,ivTick,ivImage;
     private TextView tvChangeImage;
     private MyEditText etName,etContact,etAddress;
@@ -78,7 +78,8 @@ public class StoreDetailFragment extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+
+        actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
 
         if(getArguments()!=null){
             currentStore = (Store) getArguments().getSerializable(Constant.STORE);

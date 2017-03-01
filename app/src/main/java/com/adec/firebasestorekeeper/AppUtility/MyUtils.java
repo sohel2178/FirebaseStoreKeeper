@@ -17,7 +17,9 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.QwertyKeyListener;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -26,6 +28,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+
+import com.adec.firebasestorekeeper.Model.OwnerDataModel;
+import com.adec.firebasestorekeeper.Model.Transaction;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -39,6 +44,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -551,6 +557,103 @@ public class MyUtils {
     public static boolean isNetworkConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
+    }
+
+
+    public static List<Transaction> getList(List<Transaction> transactionList) {
+        List<Transaction> tempList = new ArrayList<>();
+
+        for(Transaction x: transactionList){
+            if(x.getDate().equals(MyUtils.dateToString(new Date())) && x.getType()==1){
+                tempList.add(x);
+            }
+        }
+
+        return tempList;
+    }
+
+    public static void getStoreSales(List<OwnerDataModel> ownerDataModelList,int type){
+        for(OwnerDataModel x: ownerDataModelList){
+            List<Transaction> transactionList = x.getTransactionList();
+            //Collections.
+        }
+    }
+
+
+    public static List<OwnerDataModel> getFilteredList(List<OwnerDataModel> ownerDataModelList,String dateStr,int type){
+        List<OwnerDataModel> models = new ArrayList<>();
+
+        for(OwnerDataModel x: ownerDataModelList){
+            List<Transaction> transactionList = x.getTransactionList();
+
+            List<Transaction> tempTransaction = new ArrayList<>();
+
+            for(Transaction y: transactionList){
+                Log.d("BBBB",y.getDate()+" from outside Loop");
+                if(y.getDate().equals(dateStr) && y.getType()==type){
+                    Log.d("BBBB",y.getDate()+" from inside Loop");
+                    tempTransaction.add(y);
+                }
+            }
+
+            x.setTransactionList(tempTransaction);
+
+            models.add(x);
+        }
+
+        return models;
+
+    }
+
+    public static int getWeekNumber(String dateStr){
+        Date date = getDateFromString(dateStr);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int week = calendar.get(Calendar.WEEK_OF_YEAR);
+        return week;
+    }
+
+    public static String getWeek(String dateStr){
+        int week = getWeekNumber(dateStr);
+        int year = getYear(dateStr);
+
+        return year+"|"+week;
+    }
+
+
+    public static int getMonthNumber(String dateStr){
+        Date date = getDateFromString(dateStr);
+
+        Calendar calendar =Calendar.getInstance();
+        calendar.setTime(date);
+
+        int month = calendar.get(Calendar.MONTH);
+
+        return month;
+    }
+
+    public static List<Date> getSortedDateList(List<Transaction> transactionList){
+        String firstDate= null;
+        TreeSet<Date> dateList = new TreeSet<>();
+
+        for(Transaction x: transactionList){
+            dateList.add(getDateFromString(x.getDate()));
+        }
+
+        List<Date> returnDateList = new ArrayList<>(dateList);
+
+        return returnDateList;
+    }
+
+    public static int getYear(String dateStr){
+        Date date = getDateFromString(dateStr);
+
+        Calendar calendar =Calendar.getInstance();
+        calendar.setTime(date);
+
+        int year = calendar.get(Calendar.YEAR);
+
+        return year;
     }
 
 

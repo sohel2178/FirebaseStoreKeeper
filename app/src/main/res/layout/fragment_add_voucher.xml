@@ -40,7 +40,6 @@
                     <com.adec.firebasestorekeeper.CustomView.MyEditText
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:layout_toLeftOf="@+id/calendar"
                         android:layout_alignParentBottom="true"
                         android:inputType="text"
                         android:hint="Date"
@@ -95,11 +94,6 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <!--<ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:background="@drawable/edit_text_background_deselect"
-                        android:id="@+id/voucher_image"/>-->
 
                     <com.joanzapata.iconify.widget.IconTextView
                         android:layout_marginEnd="5dp"
@@ -123,6 +117,11 @@
 
                 </RelativeLayout>
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/divider"/>
+
 
                 <android.support.v7.widget.RecyclerView
                     android:padding="4dp"
@@ -135,7 +134,7 @@
                 <com.adec.firebasestorekeeper.CustomView.MyEditText
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="48dp"
                     android:gravity="top"
                     android:inputType="textMultiLine"
                     android:hint="Remarks"

@@ -42,11 +42,11 @@ public class AllManagerFragment extends Fragment implements MyEmployeeReferenceC
 
     private String currentUserID;
 
-    private ActionBar actionBar;
-
     private FloatingActionButton fabAdd;
 
     private FragmentListener fragmentListener;
+
+    private MyEmployeeReferenceClass employeeReferenceClass;
 
 
 
@@ -59,19 +59,11 @@ public class AllManagerFragment extends Fragment implements MyEmployeeReferenceC
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-
         fragmentListener = (FragmentListener) getActivity();
 
         UserLocalStore userLocalStore = new UserLocalStore(getActivity());
         currentUserID = userLocalStore.getUser().getId();
 
-        MyEmployeeReferenceClass employeeReferenceClass = new MyEmployeeReferenceClass(currentUserID);
-        employeeReferenceClass.setEmployeeReferenceListener(this);
-
-        userList = new ArrayList<>();
-        adapter = new ManagerAdapter(getActivity(),userList);
-        adapter.setManagerListener(this);
     }
 
     @Override
@@ -87,7 +79,7 @@ public class AllManagerFragment extends Fragment implements MyEmployeeReferenceC
     private void initView(View view) {
         rvManagers = (RecyclerView) view.findViewById(R.id.rvManager);
         rvManagers.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvManagers.setAdapter(adapter);
+
 
         fabAdd = (FloatingActionButton) view.findViewById(R.id.fab_add);
     }
@@ -101,15 +93,29 @@ public class AllManagerFragment extends Fragment implements MyEmployeeReferenceC
     @Override
     public void onResume() {
         super.onResume();
-        actionBar.show();
-        actionBar.setTitle(Constant.ALL_MANAGER);
 
         if(fragmentListener!= null){
-            fragmentListener.getFragment(0);
+            fragmentListener.getFragment(3);
         }
+
+        employeeReferenceClass = new MyEmployeeReferenceClass(currentUserID);
+        employeeReferenceClass.setEmployeeReferenceListener(this);
+
+        userList = new ArrayList<>();
+        adapter = new ManagerAdapter(getActivity(),userList);
+        adapter.setManagerListener(this);
+
+        // set Adapter OnResume
+        rvManagers.setAdapter(adapter);
     }
 
-   /* @Override
+    @Override
+    public void onPause() {
+        super.onPause();
+        employeeReferenceClass.removeReference();
+    }
+
+    /* @Override
     public void getUser(User user) {
         if(user.getParent_id().equals(currentUserID)){
             adapter.addManager(user);

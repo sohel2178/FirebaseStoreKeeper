@@ -16,11 +16,14 @@ import com.adec.firebasestorekeeper.AppUtility.Constant;
 import com.adec.firebasestorekeeper.AppUtility.MyUtils;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
 import com.adec.firebasestorekeeper.CustomView.MyEditText;
+import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Model.Customer;
 import com.adec.firebasestorekeeper.Model.User;
 import com.adec.firebasestorekeeper.Navigation.AllCustomersFragment;
 import com.adec.firebasestorekeeper.R;
 import com.adec.firebasestorekeeper.Utility.MyDatabaseReference;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,8 +47,8 @@ public class CustomerDetailFragment extends Fragment implements View.OnClickList
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        
+        actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+
         if(getArguments()!=null){
             currentCustomer = (Customer) getArguments().getSerializable(Constant.CUSTOMER);
         }
@@ -96,7 +99,7 @@ public class CustomerDetailFragment extends Fragment implements View.OnClickList
     @Override
     public void onResume() {
         super.onResume();
-        
+
         actionBar.hide();
     }
 
@@ -147,12 +150,14 @@ public class CustomerDetailFragment extends Fragment implements View.OnClickList
         }
 
         MyDatabaseReference myDatabaseReference = new MyDatabaseReference();
-        myDatabaseReference.getCustomerRef(id).child(currentCustomer.getId()).setValue(currentCustomer);
+        myDatabaseReference.getCustomerRef(id).child(currentCustomer.getId()).setValue(currentCustomer, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                Toast.makeText(getActivity(), "Customer Updated Successfully", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        getFragmentManager().popBackStack();
 
-        /*getFragmentManager().beginTransaction().replace(R.id.main_container,new AllCustomersFragment())
-                .setCustomAnimations(R.anim.enter_from_left,R.anim.exit_to_right).addToBackStack(null).commit();*/
     }
 
 

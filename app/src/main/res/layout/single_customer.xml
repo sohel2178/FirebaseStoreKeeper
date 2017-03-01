@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
     android:layout_marginBottom="10dp"
@@ -24,6 +25,15 @@
         android:textSize="16sp"
         android:textColor="@color/delete"
         android:text="1200"/>
+
+    <ImageView
+        android:padding="4dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_below="@+id/opening_balance"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/iv_transaction"
+        android:src="@drawable/transaction"/>
 
 
     <ImageView

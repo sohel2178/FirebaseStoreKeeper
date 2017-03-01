@@ -16,6 +16,8 @@ public class MyAttachmentReferenceClass {
     private DatabaseReference myRef;
     private String transaction_id;
 
+    private ValueEventListener valueEventListener;
+
     private AttachmentReferenceListener listener;
 
     public MyAttachmentReferenceClass(String transaction_id) {
@@ -24,11 +26,12 @@ public class MyAttachmentReferenceClass {
 
         myRef = myDatabaseReference.getAttachmentRererence(transaction_id);
 
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot x: dataSnapshot.getChildren()){
                     String url = x.getValue(String.class);
+
 
                     if(listener!=null){
                         listener.getUrl(url);
@@ -41,8 +44,16 @@ public class MyAttachmentReferenceClass {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        };
+
+        myRef.addListenerForSingleValueEvent(valueEventListener);
     }
+
+    public void removeListener(){
+        myRef.removeEventListener(valueEventListener);
+    }
+
+
 
     public interface AttachmentReferenceListener{
         public void getUrl(String url);

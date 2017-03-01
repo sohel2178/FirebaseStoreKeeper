@@ -20,6 +20,7 @@ import com.adec.firebasestorekeeper.AppUtility.Constant;
 import com.adec.firebasestorekeeper.AppUtility.MyUtils;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
 import com.adec.firebasestorekeeper.CustomView.MyEditText;
+import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Model.User;
 import com.adec.firebasestorekeeper.R;
 import com.adec.firebasestorekeeper.Utility.MyDatabaseReference;
@@ -40,7 +41,7 @@ public class AddManagerFragment extends Fragment implements View.OnClickListener
 
     private ProgressDialog dialog;
 
-    private ActionBar actionBar;
+    private FragmentListener fragmentListener;
 
     private String title;
 
@@ -55,14 +56,14 @@ public class AddManagerFragment extends Fragment implements View.OnClickListener
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        fragmentListener = (FragmentListener) getActivity();
+
         if(getArguments()!= null){
             title= getArguments().getString(Constant.TITLE);
         }
 
         UserLocalStore userLocalStore = new UserLocalStore(getActivity());
         currentUser = userLocalStore.getUser();
-        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-
         userLocalStore = new UserLocalStore(getActivity());
         currentUser = userLocalStore.getUser();
 
@@ -122,10 +123,10 @@ public class AddManagerFragment extends Fragment implements View.OnClickListener
     public void onResume() {
         super.onResume();
         if(currentUser.getUser_type()==0){
-            actionBar.setTitle(Constant.CREATE_MANAGER);
+            fragmentListener.getFragment(31);
 
         }else if(currentUser.getUser_type()==1){
-            actionBar.setTitle("Create Sales Man");
+            fragmentListener.getFragment(32);
         }
 
     }
@@ -211,13 +212,13 @@ public class AddManagerFragment extends Fragment implements View.OnClickListener
         getFragmentManager().popBackStack();
 
         // Commit Transaction based on Employee
-        if(getArguments()!=null){
+        /*if(getArguments()!=null){
             getFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left,R.anim.exit_to_right)
                     .replace(R.id.main_container,new Employees()).commit();
         }else {
             getFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left,R.anim.exit_to_right)
                     .replace(R.id.main_container,new AllManagerFragment()).commit();
-        }
+        }*/
 
 
     }

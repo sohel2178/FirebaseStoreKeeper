@@ -67,7 +67,7 @@ import rx.functions.Action1;
  */
 public class AddVoucher extends Fragment implements View.OnClickListener,ActivityCompat.OnRequestPermissionsResultCallback,
         ImageAdapter.AttachmentListener{
-    private ActionBar actionBar;
+
 
     private FragmentListener fragmentListener;
 
@@ -115,10 +115,7 @@ public class AddVoucher extends Fragment implements View.OnClickListener,Activit
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-
         fragmentListener = (FragmentListener) getActivity();
-
 
         UserLocalStore userLocalStore = new UserLocalStore(getActivity());
         store_id = userLocalStore.getUser().getAssign_store_id();
@@ -197,10 +194,10 @@ public class AddVoucher extends Fragment implements View.OnClickListener,Activit
     @Override
     public void onResume() {
         super.onResume();
-        actionBar.setTitle("Voucher Entry Form");
+
 
         if(fragmentListener!= null){
-            fragmentListener.getFragment(0);
+            fragmentListener.getFragment(61);
         }
     }
 

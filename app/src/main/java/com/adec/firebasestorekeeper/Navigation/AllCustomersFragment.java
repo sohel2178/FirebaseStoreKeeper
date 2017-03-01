@@ -32,7 +32,6 @@ import java.util.List;
 public class AllCustomersFragment extends Fragment implements MyCustomerReferenceClass.CustomerReferenceListener,
         View.OnClickListener,CustomerAdapter.CustomerListener{
 
-    private ActionBar actionBar;
 
     private RecyclerView rvCustomers;
 
@@ -55,25 +54,11 @@ public class AllCustomersFragment extends Fragment implements MyCustomerReferenc
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-
-        customerList = new ArrayList<>();
-        adapter = new CustomerAdapter(getActivity(),customerList);
-        adapter.setCustomerListener(this);
-
-        // Listen All Customer from the Database Reference
+        fragmentListener = (FragmentListener) getActivity();
         UserLocalStore userLocalStore = new UserLocalStore(getActivity());
         currentUser = userLocalStore.getUser();
 
-        fragmentListener = (FragmentListener) getActivity();
 
-        // Set Customer Reference as per User Type
-        if(currentUser.getUser_type()==0){
-            myCustomerReferenceClass = new MyCustomerReferenceClass(currentUser.getId());
-        }else if(currentUser.getUser_type()==1){
-            myCustomerReferenceClass = new MyCustomerReferenceClass(currentUser.getParent_id());
-        }
-        myCustomerReferenceClass.setCustomerReferenceListener(this);
     }
 
     @Override
@@ -89,7 +74,6 @@ public class AllCustomersFragment extends Fragment implements MyCustomerReferenc
     private void initView(View view) {
         rvCustomers = (RecyclerView) view.findViewById(R.id.rvCustomers);
         rvCustomers.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvCustomers.setAdapter(adapter);
 
         fabAdd = (FloatingActionButton) view.findViewById(R.id.fab_add);
 
@@ -101,13 +85,32 @@ public class AllCustomersFragment extends Fragment implements MyCustomerReferenc
     @Override
     public void onResume() {
         super.onResume();
-        actionBar.setTitle(Constant.ALL_CUSTOMERS);
-        actionBar.show();
 
         if(fragmentListener!= null){
-            fragmentListener.getFragment(0);
+            fragmentListener.getFragment(4);
         }
 
+        // Set up for Listening from Customer Node
+        customerList = new ArrayList<>();
+        adapter = new CustomerAdapter(getActivity(),customerList);
+        adapter.setCustomerListener(this);
+
+        if(currentUser.getUser_type()==0){
+            myCustomerReferenceClass = new MyCustomerReferenceClass(currentUser.getId());
+        }else if(currentUser.getUser_type()==1){
+            myCustomerReferenceClass = new MyCustomerReferenceClass(currentUser.getParent_id());
+        }
+        myCustomerReferenceClass.setCustomerReferenceListener(this);
+
+        // Attach adapter Here
+        rvCustomers.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void onPause() {
+        myCustomerReferenceClass.removeListener();
+        super.onPause();
     }
 
     @Override
@@ -140,5 +143,12 @@ public class AllCustomersFragment extends Fragment implements MyCustomerReferenc
         customerDetailFragment.setArguments(bundle);
         getFragmentManager().beginTransaction().replace(R.id.main_container,customerDetailFragment)
                 .setCustomAnimations(R.anim.enter_from_left,R.anim.exit_to_right).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void onTransactionClick(int position) {
+        Customer customer = customerList.get(position);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constant.CUSTOMER,customer);
     }
 }

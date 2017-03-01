@@ -8,10 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adec.firebasestorekeeper.Model.Customer;
+import com.adec.firebasestorekeeper.Model.PaymentAgainstOB;
 import com.adec.firebasestorekeeper.R;
+import com.adec.firebasestorekeeper.Utility.MyDatabaseReference;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -49,7 +55,9 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
 
         holder.tvName.setText(customer.getName());
         holder.tvContact.setText(customer.getContact());
-        holder.tvOpeningBalance.setText(String.valueOf(customer.getOpening_balance()));
+        //holder.tvOpeningBalance.setText(String.valueOf(customer.getOpening_balance()));
+
+        updateCutomerOpeningBalance(holder.tvOpeningBalance,customer);
 
         animateScale(holder.itemView);
 
@@ -69,21 +77,32 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
 
     public class CustomerHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView tvName,tvContact,tvOpeningBalance;
+        ImageView iv_transaction;
         public CustomerHolder(View itemView) {
             super(itemView);
 
             tvName = (TextView) itemView.findViewById(R.id.name);
             tvContact = (TextView) itemView.findViewById(R.id.contact);
             tvOpeningBalance = (TextView) itemView.findViewById(R.id.opening_balance);
+            iv_transaction = (ImageView) itemView.findViewById(R.id.iv_transaction);
 
             itemView.setOnClickListener(this);
+            iv_transaction.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if(listener!= null){
-                listener.onItemClick(getAdapterPosition());
+            if(view.getId()==R.id.iv_transaction){
+                if(listener!= null){
+                    listener.onTransactionClick(getAdapterPosition());
+                }
             }
+            if(view==itemView){
+                if(listener!= null){
+                    listener.onItemClick(getAdapterPosition());
+                }
+            }
+
         }
     }
 
@@ -102,11 +121,34 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
 
     }
 
+    private void updateCutomerOpeningBalance(final TextView textView, final Customer customer){
+        MyDatabaseReference myDatabaseReference = new MyDatabaseReference();
+        myDatabaseReference.getPaymentRefOB(customer.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                double payment=0;
+                for(DataSnapshot x : dataSnapshot.getChildren()){
+                    PaymentAgainstOB paymentAgainstOB = x.getValue(PaymentAgainstOB.class);
+                    payment = payment+paymentAgainstOB.getPayment();
+                }
+
+                double openingBal = customer.getOpening_balance()-payment;
+                textView.setText(String.valueOf("Tk. "+openingBal));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void setCustomerListener(CustomerListener listener){
         this.listener = listener;
     }
 
     public interface CustomerListener{
         public void onItemClick(int position);
+        public void onTransactionClick(int position);
     }
 }

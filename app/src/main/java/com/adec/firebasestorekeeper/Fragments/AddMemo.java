@@ -86,8 +86,6 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
 
     private static final int REQUEST_CAMERA = 0;
 
-    private ActionBar actionBar;
-
     private FragmentListener fragmentListener;
 
 
@@ -143,10 +141,7 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-
         fragmentListener = (FragmentListener) getActivity();
-
         UserLocalStore userLocalStore = new UserLocalStore(getActivity());
         currentUser = userLocalStore.getUser();
 
@@ -221,10 +216,10 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
     public void onResume() {
         super.onResume();
 
-        actionBar.setTitle("Memo Entry Form");
+
 
         if(fragmentListener!= null){
-            fragmentListener.getFragment(0);
+            fragmentListener.getFragment(62);
         }
 
     }

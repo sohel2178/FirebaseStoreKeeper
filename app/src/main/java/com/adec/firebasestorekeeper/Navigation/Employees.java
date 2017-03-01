@@ -34,7 +34,6 @@ public class Employees extends Fragment implements
         View.OnClickListener,MyEmployeeReferenceClass.EmployeeReferenceListener,
         ManagerAdapter.ManagerListener{
 
-    private ActionBar actionBar;
     private FragmentListener fragmentListener;
 
     private RecyclerView rvEmployee;
@@ -55,27 +54,14 @@ public class Employees extends Fragment implements
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+
 
         UserLocalStore userLocalStore = new UserLocalStore(getActivity());
         currentUser = userLocalStore.getUser();
 
         fragmentListener = (FragmentListener) getActivity();
 
-        if(currentUser.getUser_type()==0){
-            myEmployeeReferenceClass = new MyEmployeeReferenceClass(currentUser.getId());
 
-        }else if(currentUser.getUser_type()==1){
-            myEmployeeReferenceClass = new MyEmployeeReferenceClass(currentUser.getParent_id());
-        }
-
-        myEmployeeReferenceClass.setEmployeeReferenceListener(this);
-
-
-
-        userList = new ArrayList<>();
-        adapter = new ManagerAdapter(getActivity(),userList);
-        adapter.setManagerListener(this);
 
 
     }
@@ -92,7 +78,7 @@ public class Employees extends Fragment implements
     private void initView(View view) {
         rvEmployee= (RecyclerView) view.findViewById(R.id.rvEmployees);
         rvEmployee.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvEmployee.setAdapter(adapter);
+
         btnAdd = (FloatingActionButton) view.findViewById(R.id.fab_add);
 
         if(currentUser.getUser_type()==0){
@@ -109,15 +95,39 @@ public class Employees extends Fragment implements
     @Override
     public void onResume() {
         super.onResume();
-        actionBar.show();
-        actionBar.setTitle(Constant.EMPLOYEES);
 
         if(fragmentListener!= null){
-            fragmentListener.getFragment(0);
+            fragmentListener.getFragment(5);
         }
+
+
+        if(currentUser.getUser_type()==0){
+            myEmployeeReferenceClass = new MyEmployeeReferenceClass(currentUser.getId());
+
+        }else if(currentUser.getUser_type()==1){
+            myEmployeeReferenceClass = new MyEmployeeReferenceClass(currentUser.getParent_id());
+        }
+
+        myEmployeeReferenceClass.setEmployeeReferenceListener(this);
+
+        userList = new ArrayList<>();
+        adapter = new ManagerAdapter(getActivity(),userList);
+        adapter.setManagerListener(this);
+
+        // Set Adapter Here
+        rvEmployee.setAdapter(adapter);
+
+
     }
 
-   /* @Override
+    @Override
+    public void onPause() {
+        // Remove Reference
+        myEmployeeReferenceClass.removeReference();
+        super.onPause();
+    }
+
+    /* @Override
     public void getUser(User user) {
 
         if(!user.getId().equals(currentUser.getId())){
@@ -132,12 +142,11 @@ public class Employees extends Fragment implements
 
     @Override
     public void onClick(View view) {
-        Bundle bundle = new Bundle();
-        bundle.putString(Constant.TITLE,"Sales Man Creation Form");
+       /* Bundle bundle = new Bundle();
         AddManagerFragment addManagerFragment = new AddManagerFragment();
-        addManagerFragment.setArguments(bundle);
+        addManagerFragment.setArguments(bundle);*/
 
-        getFragmentManager().beginTransaction().replace(R.id.main_container,addManagerFragment)
+        getFragmentManager().beginTransaction().replace(R.id.main_container,new AddManagerFragment())
                 .setCustomAnimations(R.anim.enter_from_left,R.anim.exit_to_right).addToBackStack(null).commit();
     }
 

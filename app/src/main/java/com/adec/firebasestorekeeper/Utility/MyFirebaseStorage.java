@@ -15,6 +15,8 @@ public class MyFirebaseStorage {
     private static final String VOUCHER="voucher";
     private static final String STORE="store";
     private static final String EMPLOYEE="employees";
+    private static final String PAYMENT_AGAINST_OB="Payment_Against_OB";
+    private static final String PAYMENT_AGAINST_MEMO="Payment_Against_Memo";
 
     private StorageReference mainRef;
 
@@ -41,6 +43,14 @@ public class MyFirebaseStorage {
 
     public StorageReference getEmployeesReference(){
         return mainRef.child(EMPLOYEE);
+    }
+
+    public StorageReference getPaymentAgainstOB(){
+        return mainRef.child(PAYMENT_AGAINST_OB);
+    }
+
+    public StorageReference getPaymentAgainstMemo(){
+        return mainRef.child(PAYMENT_AGAINST_MEMO);
     }
 
 }

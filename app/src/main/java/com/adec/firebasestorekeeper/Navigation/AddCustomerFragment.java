@@ -18,6 +18,7 @@ import com.adec.firebasestorekeeper.AppUtility.Constant;
 import com.adec.firebasestorekeeper.AppUtility.MyUtils;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
 import com.adec.firebasestorekeeper.CustomView.MyEditText;
+import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Model.Customer;
 import com.adec.firebasestorekeeper.R;
 import com.adec.firebasestorekeeper.Utility.MyDatabaseReference;
@@ -28,6 +29,7 @@ import com.google.firebase.database.DatabaseReference;
  * A simple {@link Fragment} subclass.
  */
 public class AddCustomerFragment extends Fragment implements View.OnClickListener{
+    private FragmentListener fragmentListener;
 
     private MyEditText etName,etEmail,etAddress,etContact,etOpeningBalance;
 
@@ -40,7 +42,6 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
 
     private ProgressDialog dialog;
 
-    private ActionBar actionBar;
 
 
     public AddCustomerFragment() {
@@ -50,7 +51,7 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        fragmentListener = (FragmentListener) getActivity();
         userLocalStore = new UserLocalStore(getActivity());
         owner_id = userLocalStore.getUser().getParent_id();
 
@@ -93,7 +94,7 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
-        actionBar.setTitle(Constant.CREATE_CUSTOMER);
+        fragmentListener.getFragment(41);
     }
 
     @Override
@@ -147,8 +148,5 @@ public class AddCustomerFragment extends Fragment implements View.OnClickListene
 
         getFragmentManager().popBackStack();
 
-
-        getFragmentManager().beginTransaction().replace(R.id.main_container,new AllCustomersFragment())
-                .setCustomAnimations(R.anim.enter_from_top,R.anim.exit_to_bottom).commit();
     }
 }

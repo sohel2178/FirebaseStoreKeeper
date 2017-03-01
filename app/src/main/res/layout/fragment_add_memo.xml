@@ -44,7 +44,6 @@
                     <com.adec.firebasestorekeeper.CustomView.MyEditText
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:layout_toLeftOf="@+id/calendar"
                         android:inputType="text"
                         android:hint="Date"
                         android:focusable="false"
@@ -204,6 +203,11 @@
                         android:text="@string/icon_camera"/>
 
                 </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/divider"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:padding="10dp"

@@ -15,9 +15,13 @@ public class MyDatabaseReference {
     private static final String CUSTOMER_REF="customers";
     private static final String TRANSACTION_REF="transaction";
     private static final String ATTACHMENT_REF="attachments";
+    private static final String OB_ATTACHMENT="Opening Balance Attachments";
+    private static final String PAYMENT_ATTACHMENT="Payment Attachments";
     private static final String EMPLOYEE_REF="employees";
     private static final String PRODUCT_REF="products";
     private static final String HEAD_REF="Head";
+    private static final String PAYMENT_REF="Payment";
+    private static final String DUE_PAYMENT_REF="Due Payment";
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference mainRef;
@@ -70,6 +74,28 @@ public class MyDatabaseReference {
         DatabaseReference headRef = mainRef.child(HEAD_REF).child(owner_id);
         return headRef;
     }
+
+    public DatabaseReference getPaymentRefAgainstMemo(String transaction_id){
+        DatabaseReference paymentRef = mainRef.child(PAYMENT_REF).child(transaction_id);
+        return paymentRef;
+    }
+
+    public DatabaseReference getPaymentRefOB(String customer_id){
+        DatabaseReference paymentRef = mainRef.child(DUE_PAYMENT_REF).child(customer_id);
+        return paymentRef;
+    }
+
+    public DatabaseReference getPaymentOBAttachmentRef(String customer_id){
+        DatabaseReference paymentRef = mainRef.child(OB_ATTACHMENT).child(customer_id);
+        return paymentRef;
+    }
+
+    public DatabaseReference getPaymentMemoAttachmentRef(String paymentId){
+        DatabaseReference paymentRef = mainRef.child(PAYMENT_ATTACHMENT).child(paymentId);
+        return paymentRef;
+    }
+
+
 
 
 }
