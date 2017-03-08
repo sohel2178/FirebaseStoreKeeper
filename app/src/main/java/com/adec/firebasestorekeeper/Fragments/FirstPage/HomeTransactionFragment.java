@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.adec.firebasestorekeeper.Adapter.TransactionAdapter;
+import com.adec.firebasestorekeeper.AppUtility.Constant;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
+import com.adec.firebasestorekeeper.DetailFragment.DetailTransactionFragment;
 import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Interface.HomeListener;
 import com.adec.firebasestorekeeper.Model.Store;
@@ -40,7 +42,7 @@ import rx.functions.Func1;
  * A simple {@link Fragment} subclass.
  */
 public class HomeTransactionFragment extends Fragment implements MyStoreReferenceClass.StoreReferenceListener,
-        AllTransaction.MapTransactionListener,View.OnClickListener{
+        AllTransaction.MapTransactionListener,View.OnClickListener,TransactionAdapter.TransactionListener{
     private HomeListener homeListener;
 
     private List<Transaction> transactionList;
@@ -119,6 +121,7 @@ public class HomeTransactionFragment extends Fragment implements MyStoreReferenc
         allList = new ArrayList<>();
         tempList = new ArrayList<>();
         adapter = new TransactionAdapter(getActivity(),transactionList);
+        adapter.setTransactionListener(this);
 
         storeList = new ArrayList<>();
 
@@ -236,5 +239,19 @@ public class HomeTransactionFragment extends Fragment implements MyStoreReferenc
         tvAll.setBackgroundColor(ResourcesCompat.getColor(getResources(),R.color.colorPrimary,null));
         tvVoucher.setBackgroundColor(ResourcesCompat.getColor(getResources(),R.color.colorPrimary,null));
         tvMemo.setBackgroundColor(ResourcesCompat.getColor(getResources(),R.color.colorPrimary,null));
+    }
+
+
+    @Override
+    public void onClickTransaction(int position) {
+        Transaction transaction = transactionList.get(position);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constant.TRANSACTION,transaction);
+        DetailTransactionFragment detailTransactionFragment = new DetailTransactionFragment();
+        detailTransactionFragment.setArguments(bundle);
+
+        getFragmentManager().beginTransaction().replace(R.id.main_container,detailTransactionFragment)
+                .addToBackStack(null).commitAllowingStateLoss();
     }
 }

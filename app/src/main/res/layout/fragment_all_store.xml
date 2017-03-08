@@ -4,13 +4,30 @@
     android:layout_height="match_parent"
     android:background="@color/text_color_white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="8dp"
     tools:context="com.adec.firebasestorekeeper.Navigation.AllStoreFragment">
 
-    <android.support.v7.widget.RecyclerView
+    <TextView
+        android:padding="6dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        style="@style/MyFont.Big.Bold"
+        android:id="@+id/outlets"/>
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rvStores"
-        android:padding="8dp">
+        android:src="@drawable/my_divider_dark"
+        android:id="@+id/divider"
+        android:layout_below="@+id/outlets"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rvStores">
 
     </android.support.v7.widget.RecyclerView>
 

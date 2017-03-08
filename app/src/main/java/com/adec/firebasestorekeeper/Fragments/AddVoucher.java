@@ -147,6 +147,7 @@ public class AddVoucher extends Fragment implements View.OnClickListener,Activit
             public void onSuccess(Object o) {
                 UploadTask.TaskSnapshot snapshot = (UploadTask.TaskSnapshot) o;
 
+                @SuppressWarnings("VisibleForTests")
                 String url = String.valueOf(snapshot.getDownloadUrl());
 
                 if(transaction_id!=null){

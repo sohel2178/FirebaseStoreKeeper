@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp">
 
     <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
         android:padding="4dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
@@ -15,30 +16,108 @@
 
     <TextView
         android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/dark_font"
         android:layout_toRightOf="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/store_name"/>
 
-    <TextView
-        android:textSize="12sp"
-        android:textStyle="italic"
-        android:textColor="@color/colorPrimary"
-        android:layout_below="@+id/store_name"
-        android:layout_toRightOf="@+id/image"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/manager_name"/>
+        android:id="@+id/address_container"
+        android:layout_toRightOf="@+id/image"
+        android:layout_below="@+id/store_name">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:padding="3dp"
+            android:id="@+id/icon_address"
+            android:layout_centerVertical="true"
+            android:src="@drawable/address"/>
+
+        <TextView
+            android:layout_marginLeft="6dp"
+            android:textSize="12sp"
+            android:textColor="@color/dark_font"
+            android:layout_toRightOf="@id/icon_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:id="@+id/address"/>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/manager_name_container"
+        android:layout_toRightOf="@+id/image"
+        android:layout_below="@+id/address_container">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:padding="3dp"
+            android:id="@+id/icon_manager"
+            android:layout_centerVertical="true"
+            android:src="@drawable/manager"/>
+
+        <TextView
+            android:layout_marginLeft="6dp"
+            android:textSize="12sp"
+            android:textColor="@color/dark_font"
+            android:layout_toRightOf="@id/icon_manager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:id="@+id/manager_name"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/contact_container"
+        android:layout_toRightOf="@+id/image"
+        android:layout_below="@+id/manager_name_container">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:padding="3dp"
+            android:id="@+id/icon_contact"
+            android:layout_centerVertical="true"
+            android:src="@drawable/mobile"/>
+
+        <TextView
+            android:layout_marginLeft="6dp"
+            android:textSize="12sp"
+            android:textColor="@color/dark_font"
+            android:layout_toRightOf="@id/icon_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:id="@+id/store_contact"/>
+
+    </RelativeLayout>
+
+
 
     <TextView
-        android:textSize="10sp"
+        android:layout_marginLeft="30dp"
+        android:textSize="10dp"
         android:textStyle="italic"
-        android:textColor="@color/colorPrimary"
-        android:layout_below="@+id/manager_name"
+        android:textColor="@color/light_font"
+        android:layout_below="@+id/contact_container"
         android:layout_toRightOf="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/store_contact"/>
+        android:id="@+id/employees"/>
 
 
     <Button

@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.adec.firebasestorekeeper.Adapter.StoreAdapter;
 import com.adec.firebasestorekeeper.AppUtility.Constant;
@@ -41,8 +42,11 @@ public class AllStoreFragment extends Fragment implements MyStoreReferenceClass.
 
 
     private static final int DIALOG_REQUEST_CODE=13;
+    private int counter=0;
 
     private FragmentListener fragmentListener;
+
+    private TextView tvOutlets;
 
     private RecyclerView rvStore;
     private List<Store> storeList;
@@ -92,7 +96,7 @@ public class AllStoreFragment extends Fragment implements MyStoreReferenceClass.
     }
 
     private void initView(View view) {
-
+        tvOutlets = (TextView) view.findViewById(R.id.outlets);
         rvStore = (RecyclerView) view.findViewById(R.id.rvStores);
         rvStore.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -103,6 +107,8 @@ public class AllStoreFragment extends Fragment implements MyStoreReferenceClass.
     @Override
     public void onResume() {
         super.onResume();
+
+        counter=0;
 
         if(fragmentListener!= null){
             fragmentListener.getFragment(2);
@@ -127,6 +133,9 @@ public class AllStoreFragment extends Fragment implements MyStoreReferenceClass.
     @Override
     public void getStore(Store store) {
         adapter.addStore(store);
+        // Increment Counter
+        counter++;
+        tvOutlets.setText("Outlets "+counter);
 
         Log.d("Store",store.getName());
         dialog.dismiss();

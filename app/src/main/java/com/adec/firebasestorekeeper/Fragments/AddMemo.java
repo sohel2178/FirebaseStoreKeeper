@@ -38,6 +38,7 @@ import android.widget.Toast;
 import com.adec.firebasestorekeeper.Adapter.AutoCompleteAdapter.ProductAdapter;
 import com.adec.firebasestorekeeper.Adapter.DialogFragmenAdapter.CustomerDialogAdapter;
 import com.adec.firebasestorekeeper.Adapter.ImageAdapter;
+import com.adec.firebasestorekeeper.Adapter.LayoutAdapter;
 import com.adec.firebasestorekeeper.Adapter.SpinnerAdapter.SalesManSpinnerAdapter;
 import com.adec.firebasestorekeeper.AppUtility.Constant;
 import com.adec.firebasestorekeeper.AppUtility.MyUtils;
@@ -48,6 +49,7 @@ import com.adec.firebasestorekeeper.DialogFragment.CustomerDialogFragment;
 import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Model.Customer;
 import com.adec.firebasestorekeeper.Model.Memo;
+import com.adec.firebasestorekeeper.Model.MyLayout;
 import com.adec.firebasestorekeeper.Model.Product;
 import com.adec.firebasestorekeeper.Model.User;
 import com.adec.firebasestorekeeper.Model.Voucher;
@@ -64,6 +66,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.UploadTask;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.mlsdev.rximagepicker.RxImagePicker;
 import com.mlsdev.rximagepicker.Sources;
@@ -71,6 +74,7 @@ import com.mlsdev.rximagepicker.Sources;
 import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -80,7 +84,7 @@ import rx.functions.Action1;
  * A simple {@link Fragment} subclass.
  */
 public class AddMemo extends Fragment implements View.OnClickListener,MyEmployeeReferenceClass.EmployeeReferenceListener,
-        ImageAdapter.AttachmentListener,MyProductReferenceClass.ProductReferenceListener{
+        ImageAdapter.AttachmentListener{
 
     private static final int CUSTOMER_REQUEST_CODE=12;
 
@@ -89,20 +93,27 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
     private FragmentListener fragmentListener;
 
 
-    private EditText etMemoNumber,etQuantity,etUnitPrice,etTotal,etPayment,etDate,etRemarks,etCustomer,etPaymentMethod;
-    private Spinner spSalesMan;
+    private EditText etMemoNumber,etTotal,etPayment,etDate,etRemarks,etCustomer;
+    private MaterialSpinner spSalesMan,spPaymentMethod;
 
     private IconTextView itvCalendar,itvAttach,itvCamera,itvSelectCustomer;
 
-    private RecyclerView rvAttachments;
+    private ImageView ivAddProduct;
+
+    private RecyclerView rvAttachments,rvProduct;
+
+    private List<MyLayout> myLayoutList;
+    private LayoutAdapter layoutAdapter;
     private ImageAdapter attachmentAdapter;
     private List<Bitmap> bitmapList;
+
+    private List<String> paymentMethods;
+    private List<Product> productList;
 
 
 
     private Button btnAdd;
 
-    private AutoCompleteTextView acProductName;
 
     private DatabaseReference transactionRef;
     private MyFirebaseStorage myFirebaseStorage;
@@ -112,9 +123,8 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
     private User currentUser;
 
     private List<User> salesManList;
+    private List<String> salesManName;
 
-
-    private SalesManSpinnerAdapter salesManSpinnerAdapter;
 
     private Customer selectedCustomer;
 
@@ -126,7 +136,6 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
 
     private int uploadIndicator;
 
-    private List<String> productList;
 
     private String store_id;
 
@@ -157,16 +166,24 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
 
 
         salesManList= new ArrayList<>();
-        salesManSpinnerAdapter = new SalesManSpinnerAdapter(getActivity(),R.layout.single_sales_man_spinner,salesManList);
+        salesManName = new ArrayList<>();
+        //salesManSpinnerAdapter = new SalesManSpinnerAdapter(getActivity(),R.layout.single_sales_man_spinner,salesManList);
 
 
         MyEmployeeReferenceClass myEmployeeReferenceClass = new MyEmployeeReferenceClass(currentUser.getParent_id());
         myEmployeeReferenceClass.setEmployeeReferenceListener(this);
 
-        MyProductReferenceClass myProductReferenceClass = new MyProductReferenceClass(currentUser.getParent_id());
-        myProductReferenceClass.setProductReferenceListener(this);
+        paymentMethods = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.payment_method))) ;
 
-        productList = new ArrayList<>();
+        myLayoutList = new ArrayList<>();
+        layoutAdapter = new LayoutAdapter(getActivity(),myLayoutList);
+        layoutAdapter.addItem(new MyLayout());
+        layoutAdapter.setLayoutListener(new LayoutAdapter.LayoutListener() {
+            @Override
+            public void onCloseClick(int position) {
+                layoutAdapter.removeItem(position);
+            }
+        });
 
 
 
@@ -186,6 +203,7 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
             public void onSuccess(Object o) {
                 UploadTask.TaskSnapshot snapshot = (UploadTask.TaskSnapshot) o;
 
+                @SuppressWarnings("VisibleForTests")
                 String url = String.valueOf(snapshot.getDownloadUrl());
 
                 if(transaction_id!=null){
@@ -248,19 +266,18 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
     }
 
     private void initView(View view) {
-        acProductName = (AutoCompleteTextView) view.findViewById(R.id.product_name);
+       /* acProductName = (AutoCompleteTextView) view.findViewById(R.id.product_name);
         acProductName.setThreshold(0);
         ArrayAdapter adapter = new ArrayAdapter(getActivity(),android.R.layout.simple_dropdown_item_1line,productList);
-        acProductName.setAdapter(adapter);
+        acProductName.setAdapter(adapter);*/
 
         // All EditTest init Here
         etMemoNumber = (EditText) view.findViewById(R.id.memo_no);
         etCustomer = (EditText) view.findViewById(R.id.customer);
-        etQuantity = (EditText) view.findViewById(R.id.quantity);
-        etUnitPrice = (EditText) view.findViewById(R.id.unit_price);
         etTotal = (EditText) view.findViewById(R.id.total);
         etPayment = (EditText) view.findViewById(R.id.payment);
-        etPaymentMethod = (EditText) view.findViewById(R.id.payment_method);
+        spPaymentMethod = (MaterialSpinner) view.findViewById(R.id.payment_method);
+        spPaymentMethod.setItems(paymentMethods);
         etDate = (EditText) view.findViewById(R.id.date);
         etRemarks = (EditText) view.findViewById(R.id.remarks);
 
@@ -270,6 +287,10 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
         itvCamera = (IconTextView) view.findViewById(R.id.camera);
         itvSelectCustomer = (IconTextView) view.findViewById(R.id.select_customer);
 
+        // Image Button
+        ivAddProduct = (ImageView) view.findViewById(R.id.add_product);
+
+
 
         btnAdd = (Button) view.findViewById(R.id.add);
 
@@ -278,9 +299,9 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
         //spCustomer,spSalesMan,spPaymentMethod;
 
 
-        spSalesMan = (Spinner) view.findViewById(R.id.sales_person);
-        spSalesMan.getBackground().setColorFilter(ResourcesCompat.getColor(getResources(),R.color.my_color,null), PorterDuff.Mode.SRC_ATOP);
-        spSalesMan.setAdapter(salesManSpinnerAdapter);
+        spSalesMan = (MaterialSpinner) view.findViewById(R.id.sales_person);
+        //spSalesMan.getBackground().setColorFilter(ResourcesCompat.getColor(getResources(),R.color.my_color,null), PorterDuff.Mode.SRC_ATOP);
+        //spSalesMan.setAdapter(salesManSpinnerAdapter);
 
         // Attachment Recycler View
         int colCount = MyUtils.getScreenWidthInDp(getActivity())/110;
@@ -288,6 +309,10 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
         rvAttachments.setLayoutManager(new GridLayoutManager(getActivity(),colCount));
         //rvAttachments.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         rvAttachments.setAdapter(attachmentAdapter);
+
+        rvProduct = (RecyclerView) view.findViewById(R.id.rv_product);
+        rvProduct.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvProduct.setAdapter(layoutAdapter);
 
 
     }
@@ -302,6 +327,7 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
         itvCamera.setOnClickListener(this);
         itvSelectCustomer.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
+        ivAddProduct.setOnClickListener(this);
     }
 
     @Override
@@ -357,39 +383,26 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
                 customerDialogFragment.show(getFragmentManager(), Constant.DEFAULAT_FRAGMENT_TAG);
                 break;
 
-            /*case R.id.calculator:
-                *//*if(TextUtils.isEmpty(etQuantity.getText().toString().trim()) || TextUtils.isEmpty(etUnitPrice.getText().toString().trim())){
-                    Toast.makeText(getActivity(), "Fill up quantity and price field", Toast.LENGTH_SHORT).show();
-                }else{
-                    int quantity = Integer.parseInt(etQuantity.getText().toString().trim());
-                    double price = Double.parseDouble(etUnitPrice.getText().toString().trim());
-
-                    double val = quantity*price;
-                    DecimalFormat df = new DecimalFormat("#.00");
-
-                    etTotal.setText(df.format(val));
-
-
-                }*//*
-                break;*/
-
-
             case R.id.add:
-
                 MyUtils.hideKey(view);
                 String date = etDate.getText().toString().trim();
                 String memo_no = etMemoNumber.getText().toString().trim();
-                String productName = acProductName.getText().toString().trim();
+                /*String productName = acProductName.getText().toString().trim();
                 String quantityStr= etQuantity.getText().toString().trim();
-                String unitPriceStr = etUnitPrice.getText().toString();
+                String unitPriceStr = etUnitPrice.getText().toString();*/
                 String totalStr = etTotal.getText().toString().trim();
-                String customerId = selectedCustomer.getId();
+
+
+
+
+                productList = layoutAdapter.getData();
 
                 String payment = etPayment.getText().toString().trim();
-                String paymentMethod = etPaymentMethod.getText().toString().trim();
+                String paymentMethod = paymentMethods.get(spPaymentMethod.getSelectedIndex());
 
                 // Todo later Sales Person Id
-                String salesPersonId = salesManList.get(spSalesMan.getSelectedItemPosition()).getId();
+                String salesPersonId = salesManList.get(spSalesMan.getSelectedIndex()).getId();
+                Log.d("HHHH",salesPersonId);
                 String remarks = etRemarks.getText().toString().trim();
 
 
@@ -399,26 +412,28 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
                     return;
                 }
 
-                if(TextUtils.isEmpty(productName)){
-                    acProductName.requestFocus();
-                    Toast.makeText(getActivity(), "Product Name is Empty", Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
-                int quantity =0;
-                if(!TextUtils.isEmpty(quantityStr)){
-                    quantity= Integer.parseInt(quantityStr);
-                }
-
-                double unitPrice =0;
-                if(!TextUtils.isEmpty(unitPriceStr)){
-                    unitPrice= Double.parseDouble(unitPriceStr);
-                }
 
                 if(TextUtils.isEmpty(totalStr)){
-                    etMemoNumber.requestFocus();
+                    etTotal.requestFocus();
                     Toast.makeText(getActivity(), "Total is empty", Toast.LENGTH_SHORT).show();
                     return;
+                }
+
+                if(TextUtils.isEmpty(payment)){
+                    etPayment.requestFocus();
+                    Toast.makeText(getActivity(), "Total is empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                String customerId = null;
+
+                if(selectedCustomer != null){
+                    customerId = selectedCustomer.getId();
+                }else{
+                    etCustomer.requestFocus();
+                    Toast.makeText(getActivity(), "You should a Customer", Toast.LENGTH_SHORT).show();
                 }
 
                 double total = Double.parseDouble(totalStr);
@@ -434,18 +449,16 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
                 dialog.show();
                 postDatatotheServer(voucher);*/
 
-               Memo memo = new Memo(memo_no,date,productName,quantity,unitPrice,total,customerId,paymentAmount,salesPersonId,paymentMethod,remarks,store_id);
-
-                dialog.show();
-                postDatatotheServer(memo);
-
-                if(!MyUtils.isProductIsInTheList(productList,productName)){
-                    myDatabaseReference.getProductReference(currentUser.getParent_id()).push().setValue(productName);
+                if(customerId != null){
+                    Memo memo = new Memo(memo_no,date,"",0,0,total,customerId,paymentAmount,salesPersonId,paymentMethod,remarks,store_id);
+                    dialog.show();
+                    postDatatotheServer(memo);
                 }
 
+                break;
 
-
-
+            case R.id.add_product:
+                layoutAdapter.addItem(new MyLayout());
                 break;
         }
 
@@ -467,6 +480,12 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
+                if(productList.size()>0){
+                    uploadProduct();
+                }
+
+
+
                 if(bitmapList.size()==0){
                     dialog.dismiss();
                     getFragmentManager().popBackStack();
@@ -482,6 +501,14 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
         });
 
 
+    }
+
+    private void uploadProduct(){
+        DatabaseReference prodRef = myDatabaseReference.getProductReference(currentUser.getParent_id()).child(transaction_id);
+
+        for(Product x: productList){
+            prodRef.push().setValue(x);
+        }
     }
 
     private void uploadImage(){
@@ -605,13 +632,13 @@ public class AddMemo extends Fragment implements View.OnClickListener,MyEmployee
 
         if(user.getUser_type()==2 && user.getAssign_store_id().equals(currentUser.getAssign_store_id())){
             salesManList.add(user);
-            salesManSpinnerAdapter.notifyDataSetChanged();
+            salesManName.add(user.getName());
+            //salesManSpinnerAdapter.notifyDataSetChanged();
+
+            spSalesMan.setItems(salesManName);
         }
 
     }
 
-    @Override
-    public void getProduct(List<String> product) {
-        productList.addAll(product);
-    }
+
 }

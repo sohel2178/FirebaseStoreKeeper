@@ -17,6 +17,7 @@ import com.adec.firebasestorekeeper.Adapter.CustomerAdapter;
 import com.adec.firebasestorekeeper.AppUtility.Constant;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
 import com.adec.firebasestorekeeper.DetailFragment.CustomerDetailFragment;
+import com.adec.firebasestorekeeper.Fragments.Customer.CustomerTransactionFragment;
 import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Model.Customer;
 import com.adec.firebasestorekeeper.Model.User;
@@ -150,5 +151,11 @@ public class AllCustomersFragment extends Fragment implements MyCustomerReferenc
         Customer customer = customerList.get(position);
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constant.CUSTOMER,customer);
+
+        CustomerTransactionFragment customerTransactionFragment = new CustomerTransactionFragment();
+        customerTransactionFragment.setArguments(bundle);
+
+        getFragmentManager().beginTransaction().replace(R.id.main_container,customerTransactionFragment)
+                .setCustomAnimations(R.anim.enter_from_left,R.anim.exit_to_right).addToBackStack(null).commit();
     }
 }

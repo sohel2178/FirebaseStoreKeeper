@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements MyUserReferenceCl
                 break;
 
             case 2:
-                actionBar.setTitle("Stores");
+                actionBar.setTitle("Outlets");
                 break;
 
             case 21:

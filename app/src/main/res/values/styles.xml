@@ -30,6 +30,89 @@
     </style>
 
 
+
+    <style name="MyFont">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:typeface">serif</item>
+    </style>
+
+    <style name="MyFont.Big">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="MyFont.Big.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MyFont.Big.Bold.Dark">
+        <item name="android:textColor">@color/dark_font</item>
+    </style>
+
+    <style name="MyFont.Medium">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="MyFont.Medium.Dark">
+        <item name="android:textColor">@color/dark_font</item>
+    </style>
+
+    <style name="MyFont.Medium.Light">
+        <item name="android:textColor">@color/light_font</item>
+    </style>
+
+    <style name="MyFont.Medium.White">
+        <item name="android:textColor">@color/text_color_white</item>
+    </style>
+
+    <style name="MyFont.Small">
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="MyFont.Small.Dark">
+        <item name="android:textColor">@color/dark_font</item>
+    </style>
+
+    <style name="MyFont.Small.Light">
+        <item name="android:textColor">@color/light_font</item>
+    </style>
+
+    <style name="MyFont.Small.Light.Italic">
+        <item name="android:textStyle">italic</item>
+    </style>
+
+
+    <style name="CodeFont" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">#00FF00</item>
+        <item name="android:typeface">serif</item>
+    </style>
+
+
+
+    <style name="CodeFont.Blue">
+        <item name="android:textColor">@color/my_color</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="CodeFont.Black">
+        <item name="android:textColor">#444444</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="MyEt">
+        <item name="android:textColor">#00FF00</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="MyEt.Black">
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="MyEt.Black.Number">
+        <item name="android:inputType">numberDecimal</item>
+    </style>
+
+
    <!-- <style name="SpinnerAppTheme" parent="android:Widget.Spinner">
         <item name="android:background">@drawable/apptheme_spinner_background_holo_light</item>
         <item name="android:dropDownSelector">@drawable/apptheme_list_selector_holo_light</item>

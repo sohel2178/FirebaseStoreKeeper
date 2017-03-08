@@ -73,6 +73,9 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreHolder>
 
         holder.tvStoreName.setText(store.getName());
         holder.tvContact.setText(store.getContact());
+        holder.tvAddress.setText(store.getAddress());
+
+        updateEmployees(holder.tvEmployees,store.getId());
 
         if(store.getStore_image()!=null){
             if(!store.getStore_image().equals("")){
@@ -109,10 +112,34 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreHolder>
         return storeList.size();
     }
 
+    private void updateEmployees(final TextView textView, final String store_id){
+
+        employeeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int employees =0;
+                for(DataSnapshot x: dataSnapshot.getChildren()){
+                    User user = x.getValue(User.class);
+                    if(user.getAssign_store_id().equals(store_id)){
+                        employees++;
+                    }
+                }
+
+                textView.setText(employees+" Employees");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 
     class StoreHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView tvStoreName,tvContact,tvManagerName;
+        TextView tvStoreName,tvContact,tvManagerName,tvAddress,tvEmployees;
         ImageView ivStoreImage;
         Button btnAssign;
 
@@ -122,6 +149,8 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreHolder>
             tvStoreName = (TextView) itemView.findViewById(R.id.store_name);
             tvContact = (TextView) itemView.findViewById(R.id.store_contact);
             tvManagerName = (TextView) itemView.findViewById(R.id.manager_name);
+            tvAddress = (TextView) itemView.findViewById(R.id.address);
+            tvEmployees = (TextView) itemView.findViewById(R.id.employees);
             ivStoreImage = (ImageView) itemView.findViewById(R.id.image);
             btnAssign = (Button) itemView.findViewById(R.id.assign);
 

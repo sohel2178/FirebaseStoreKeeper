@@ -21,6 +21,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
 import com.adec.firebasestorekeeper.Adapter.TransactionAdapter;
+import com.adec.firebasestorekeeper.AppUtility.Constant;
 import com.adec.firebasestorekeeper.AppUtility.MyUtils;
 import com.adec.firebasestorekeeper.CustomListener.MyChangeListener;
 import com.adec.firebasestorekeeper.CustomView.MyEditText;
@@ -44,7 +45,8 @@ import rx.functions.Func1;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CustomizeReportFragment extends Fragment implements View.OnClickListener {
+public class CustomizeReportFragment extends Fragment implements View.OnClickListener,
+        TransactionAdapter.TransactionListener{
     private static final String TAG="SOHEL";
 
     private ActionBar actionBar;
@@ -291,6 +293,7 @@ public class CustomizeReportFragment extends Fragment implements View.OnClickLis
 
         adapterList = new ArrayList<>();
         adapter = new TransactionAdapter(getActivity(),adapterList);
+        adapter.setTransactionListener(this);
 
         rvTransaction.setAdapter(adapter);
 
@@ -426,4 +429,16 @@ public class CustomizeReportFragment extends Fragment implements View.OnClickLis
     }
 
 
+    @Override
+    public void onClickTransaction(int position) {
+        Transaction transaction = transactionList.get(position);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constant.TRANSACTION,transaction);
+        DetailTransactionFragment detailTransactionFragment = new DetailTransactionFragment();
+        detailTransactionFragment.setArguments(bundle);
+
+        getFragmentManager().beginTransaction().replace(R.id.main_container,detailTransactionFragment)
+                .addToBackStack(null).commitAllowingStateLoss();
+    }
 }

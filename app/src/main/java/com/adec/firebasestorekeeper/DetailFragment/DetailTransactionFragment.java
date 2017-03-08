@@ -19,6 +19,7 @@ import com.adec.firebasestorekeeper.AppUtility.Constant;
 import com.adec.firebasestorekeeper.AppUtility.MyUtils;
 import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
 import com.adec.firebasestorekeeper.CustomView.MyEditText;
+import com.adec.firebasestorekeeper.Fragments.Transaction.TransactionHistoryFragment;
 import com.adec.firebasestorekeeper.Interface.FragmentListener;
 import com.adec.firebasestorekeeper.Model.Transaction;
 import com.adec.firebasestorekeeper.Model.User;
@@ -42,7 +43,7 @@ public class DetailTransactionFragment extends Fragment implements AttachmentAda
     private RelativeLayout rlProductName,rlQuantity,rlUnitPrice,rlTotal,rlCustomer,rlSalesMan,
                 rlPayTo,rlPayment,rlHead;
 
-    private ImageView ivClose;
+    private ImageView ivClose,ivHistory;
 
     private RecyclerView rvAttachments;
     private AttachmentAdapter attachmentAdapter;
@@ -158,6 +159,11 @@ public class DetailTransactionFragment extends Fragment implements AttachmentAda
         rlHead = (RelativeLayout) view.findViewById(R.id.rl_head);
 
         ivClose = (ImageView) view.findViewById(R.id.close);
+        ivHistory = (ImageView) view.findViewById(R.id.history);
+
+        if(transaction.getType()==1){
+            ivHistory.setVisibility(View.VISIBLE);
+        }
 
 
     }
@@ -166,6 +172,7 @@ public class DetailTransactionFragment extends Fragment implements AttachmentAda
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ivClose.setOnClickListener(this);
+        ivHistory.setOnClickListener(this);
     }
 
     @Override
@@ -299,6 +306,21 @@ public class DetailTransactionFragment extends Fragment implements AttachmentAda
 
     @Override
     public void onClick(View v) {
-        getFragmentManager().popBackStack();
+        switch (v.getId()){
+            case R.id.close:
+                getFragmentManager().popBackStack();
+                break;
+
+            case R.id.history:
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Constant.TRANSACTION,transaction);
+
+                TransactionHistoryFragment transactionHistoryFragment = new TransactionHistoryFragment();
+                transactionHistoryFragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.main_container,transactionHistoryFragment)
+                        .addToBackStack(null).commit();
+                break;
+        }
+
     }
 }

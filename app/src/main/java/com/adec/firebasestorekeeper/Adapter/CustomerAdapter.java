@@ -11,8 +11,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
 import com.adec.firebasestorekeeper.Model.Customer;
 import com.adec.firebasestorekeeper.Model.PaymentAgainstOB;
+import com.adec.firebasestorekeeper.Model.User;
 import com.adec.firebasestorekeeper.R;
 import com.adec.firebasestorekeeper.Utility.MyDatabaseReference;
 import com.google.firebase.database.DataSnapshot;
@@ -32,12 +34,18 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
     private LayoutInflater inflater;
     private CustomerListener listener;
 
+    private User currentUser;
+
 
 
     public CustomerAdapter(Context context, List<Customer> customerList) {
         this.context = context;
         this.customerList = customerList;
         this.inflater = LayoutInflater.from(context);
+
+        UserLocalStore userLocalStore = new UserLocalStore(context);
+        currentUser = userLocalStore.getUser();
+
     }
 
     @Override
@@ -56,6 +64,12 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.Custom
         holder.tvName.setText(customer.getName());
         holder.tvContact.setText(customer.getContact());
         //holder.tvOpeningBalance.setText(String.valueOf(customer.getOpening_balance()));
+
+        if(currentUser.getUser_type()==0){
+            holder.iv_transaction.setVisibility(View.GONE);
+        }
+
+
 
         updateCutomerOpeningBalance(holder.tvOpeningBalance,customer);
 

@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.adec.firebasestorekeeper.AppUtility.MyUtils;
+import com.adec.firebasestorekeeper.AppUtility.UserLocalStore;
 import com.adec.firebasestorekeeper.Model.Transaction;
+import com.adec.firebasestorekeeper.Model.User;
 import com.adec.firebasestorekeeper.R;
 import com.adec.firebasestorekeeper.Utility.MyDatabaseReference;
 import com.google.firebase.database.DataSnapshot;
@@ -37,11 +39,21 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     private ValueEventListener valueEventListener;
     private DatabaseReference attachmentRef;
 
+    private MyDatabaseReference myDatabaseReference;
+
+    private User currentUser;
+
 
     public TransactionAdapter(Context context, List<Transaction> transactionList) {
         this.context = context;
         this.transactionList = transactionList;
         this.inflater = LayoutInflater.from(context);
+
+        myDatabaseReference = new MyDatabaseReference();
+
+        UserLocalStore userLocalStore = new UserLocalStore(context);
+        currentUser = userLocalStore.getUser();
+
 
     }
 
@@ -68,17 +80,16 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         if(transaction.getType()==0){
             holder.tvPaymentAmountOrTotal.setText(String.valueOf(transaction.getPayment_amount()));
-            holder.tvPaymentAmountOrTotal.setTextColor(ResourcesCompat.getColor(context.getResources(),R.color.delete,null));
+            holder.tvPaymentAmountOrTotal.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.red,null));
 
             holder.tvPayToOrCustomer.setText(transaction.getPay_to());
         }else{
             holder.tvPaymentAmountOrTotal.setText(String.valueOf(transaction.getTotal()));
-            holder.tvPaymentAmountOrTotal.setTextColor(ResourcesCompat.getColor(context.getResources(),R.color.my_color,null));
+            holder.tvPaymentAmountOrTotal.setBackground(ResourcesCompat.getDrawable(context.getResources(),R.drawable.dark_green,null));
 
             holder.tvPayToOrCustomer.setText(transaction.getProduct_name());
         }
 
-        MyDatabaseReference myDatabaseReference = new MyDatabaseReference();
         attachmentRef = myDatabaseReference.getAttachmentRererence(transaction.getId());
         valueEventListener = new ValueEventListener() {
             @Override
@@ -99,6 +110,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         attachmentRef.addListenerForSingleValueEvent(valueEventListener);
 
+        // update Store Name
+        updateStoreName(holder.tvStroreName,transaction.getStore_id());
+
+        // Update Due
+        if(transaction.getType()==0){
+            holder.tvDue.setVisibility(View.GONE);
+        }
+
 
 
     }
@@ -108,6 +127,29 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         notifyItemInserted(0);
     }
 
+    private void updateStoreName(final TextView textView, String store_id){
+        String ownerId=null;
+
+        if(currentUser.getUser_type()==0){
+           ownerId= currentUser.getId();
+        }else if(currentUser.getUser_type()==1){
+            ownerId = currentUser.getParent_id();
+        }
+        myDatabaseReference.getStoreRef(ownerId).child(store_id).child("name")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String name = dataSnapshot.getValue(String.class);
+                        textView.setText(name);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
     @Override
     public int getItemCount() {
         return transactionList.size();
@@ -115,7 +157,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     public class TransactionHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView tvDate,tvVoucherMemoId,tvPaymentAmountOrTotal,tvPayToOrCustomer;
+        TextView tvDate,tvVoucherMemoId,tvPaymentAmountOrTotal,tvPayToOrCustomer,tvStroreName,tvDue;
         ImageView ivImage;
 
         public TransactionHolder(View itemView) {
@@ -125,6 +167,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             tvPayToOrCustomer = (TextView) itemView.findViewById(R.id.pay_to_or_customer);
             tvPaymentAmountOrTotal = (TextView) itemView.findViewById(R.id.payment_amount_or_total);
             tvVoucherMemoId = (TextView) itemView.findViewById(R.id.voucher_memo_id);
+            tvStroreName = (TextView) itemView.findViewById(R.id.store_name);
+            tvDue = (TextView) itemView.findViewById(R.id.due);
 
             ivImage = (ImageView) itemView.findViewById(R.id.image);
 

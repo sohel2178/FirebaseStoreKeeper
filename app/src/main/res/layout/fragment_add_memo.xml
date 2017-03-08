@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffeeee"
+    android:background="@color/nav_back"
     tools:context="com.adec.firebasestorekeeper.Fragments.AddMemo">
 
 
@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/add"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,212 +22,463 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true">
+                android:layout_alignParentStart="true"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/text_color_white"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/memo_title"
+                        style="@style/MyFont.Small.Light.Italic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Memo Number" />
+
+                    <ImageView
+                        android:id="@+id/memo_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/memo_title"
+                        android:src="@drawable/my_divider_dark" />
+
+                    <EditText
+                        android:id="@+id/memo_no"
+                        style="@style/MyEt.Black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/memo_divider"
+                        android:hint="Memo Number"
+                        android:inputType="text" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/text_color_white"
+                    android:padding="8dp">
+
+                    <TextView
+                        style="@style/MyFont.Small.Light.Italic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Product Description" />
+
+                    <ImageView
+                        android:id="@+id/add_product"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/plus" />
+
+                    <ImageView
+                        android:id="@+id/prod_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/add_product"
+                        android:src="@drawable/my_divider_dark" />
+
+                    <RelativeLayout
+                        android:layout_marginTop="2dp"
+                        android:id="@+id/prod_heading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/prod_divider">
+
+                        <ImageView
+                            android:id="@+id/close"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/new_close"
+                            android:visibility="invisible" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@+id/close">
+
+                            <TextView
+                                android:id="@+id/et_name"
+                                style="@style/MyFont.Medium.Dark"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="6dp"
+                                android:layout_marginRight="6dp"
+                                android:layout_weight="1"
+                                android:text="Prod Name" />
+
+                            <TextView
+                                android:text="Quantity"
+                                android:id="@+id/et_quantity"
+                                style="@style/MyFont.Medium.Dark"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="6dp"
+                                android:layout_marginRight="6dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:text="Amount"
+                                android:id="@+id/et_amount"
+                                style="@style/MyFont.Medium.Dark"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="6dp"
+                                android:layout_marginRight="6dp"
+                                android:layout_weight="1" />
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/prod_heading">
+
+                    </android.support.v7.widget.RecyclerView>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/text_color_white"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/amount_to_be_paid_title"
+                        style="@style/MyFont.Small.Light.Italic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Amount to be paid" />
+
+                    <ImageView
+                        android:id="@+id/total_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/amount_to_be_paid_title"
+                        android:src="@drawable/my_divider_dark" />
+
+                    <EditText
+                        android:id="@+id/total"
+                        style="@style/MyEt.Black.Number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_divider"
+                        android:hint="Total" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/text_color_white"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/payment_title"
+                        style="@style/MyFont.Small.Light.Italic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Paid Amount" />
+
+                    <ImageView
+                        android:id="@+id/payment_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/payment_title"
+                        android:src="@drawable/my_divider_dark" />
+
+                    <EditText
+                        android:id="@+id/payment"
+                        style="@style/MyEt.Black.Number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/payment_divider"
+                        android:hint="Payment" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/text_color_white"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/date_title"
+                        style="@style/MyFont.Small.Light.Italic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date" />
+
+                    <ImageView
+                        android:id="@+id/date_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/date_title"
+                        android:src="@drawable/my_divider_dark" />
 
                     <com.joanzapata.iconify.widget.IconTextView
-                        android:layout_marginLeft="5dp"
+                        android:id="@+id/calendar"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/date_title"
                         android:layout_centerVertical="true"
-                        android:textSize="24sp"
-                        android:gravity="center"
-                        android:id="@+id/calendar"
-                        android:text="{fa-calendar}"/>
-
-                    <com.adec.firebasestorekeeper.CustomView.MyEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:inputType="text"
-                        android:hint="Date"
-                        android:focusable="false"
-                        android:paddingLeft="10dp"
-                        android:layout_marginRight="5dp"
-                        android:id="@+id/date"/>
-
-                </RelativeLayout>
-
-                <com.adec.firebasestorekeeper.CustomView.MyEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:inputType="text"
-                    android:hint="Memo Number"
-                    android:paddingLeft="10dp"
-                    android:id="@+id/memo_no"/>
-
-                <com.adec.firebasestorekeeper.CustomView.MyAutoCompleteTextView
-                    android:layout_toLeftOf="@+id/sync"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:inputType="text"
-                    android:hint="Product Name"
-                    android:paddingLeft="10dp"
-                    android:layout_marginRight="5dp"
-                    android:id="@+id/product_name"/>
-
-
-
-
-                <com.adec.firebasestorekeeper.CustomView.MyEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:inputType="number"
-                    android:hint="Quantity"
-                    android:paddingLeft="10dp"
-                    android:id="@+id/quantity"/>
-
-                <com.adec.firebasestorekeeper.CustomView.MyEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:inputType="numberDecimal"
-                    android:hint="Unit Price"
-                    android:paddingLeft="10dp"
-                    android:id="@+id/unit_price"/>
-
-                <com.adec.firebasestorekeeper.CustomView.MyEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:inputType="text"
-                    android:hint="Total"
-                    android:paddingLeft="10dp"
-                    android:layout_marginRight="5dp"
-                    android:id="@+id/total"/>
-
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.adec.firebasestorekeeper.CustomView.MyEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:inputType="numberDecimal"
-                        android:hint="Select Customer"
-                        android:focusable="false"
-                        android:paddingLeft="10dp"
-                        android:layout_toLeftOf="@+id/select_customer"
-                        android:id="@+id/customer"/>
-
-                    <com.joanzapata.iconify.widget.IconTextView
                         android:layout_marginLeft="5dp"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:textSize="24sp"
                         android:gravity="center"
-                        android:clickable="true"
-                        android:background="@drawable/custom_bg"
-                        android:id="@+id/select_customer"
-                        android:text="@string/icon_select"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true" />
+                        android:text="{fa-calendar}"
+                        android:textSize="24sp" />
+
+                    <EditText
+                        android:id="@+id/date"
+                        style="@style/MyEt.Black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/date_title"
+                        android:layout_marginRight="5dp"
+                        android:focusable="false"
+                        android:hint="Date"
+                        android:inputType="text" />
 
                 </RelativeLayout>
 
-
-
-
-                <com.adec.firebasestorekeeper.CustomView.MyEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:inputType="numberDecimal"
-                    android:paddingLeft="10dp"
-                    android:hint="Payment"
-                    android:id="@+id/payment"/>
-
-                <com.adec.firebasestorekeeper.CustomView.MyEditText
-                    android:layout_width="match_parent"
-                    android:layout_centerVertical="true"
-                    android:layout_height="48dp"
-                    android:paddingLeft="10dp"
-                    android:hint="Payment Method"
-                    android:inputType="text"
-                    android:id="@+id/payment_method"/>
-
-
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/text_color_white"
+                    android:padding="8dp">
 
                     <TextView
-                        android:paddingLeft="10dp"
+                        android:id="@+id/customer_title"
+                        style="@style/MyFont.Small.Light.Italic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Customer Name" />
+
+                    <ImageView
+                        android:id="@+id/customer_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/customer_title"
+                        android:src="@drawable/my_divider_dark" />
+
+                    <EditText
+                        android:id="@+id/customer"
+                        style="@style/MyEt.Black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/customer_divider"
+                        android:layout_toLeftOf="@+id/select_customer"
+                        android:focusable="false"
+                        android:hint="Select Customer" />
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:id="@+id/select_customer"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@+id/customer_divider"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/custom_bg"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="@string/icon_select"
+                        android:textSize="24sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/text_color_white"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/sales_person_title"
+                        style="@style/MyFont.Small.Light.Italic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sales Person" />
+
+                    <ImageView
+                        android:id="@+id/sales_person_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/sales_person_title"
+                        android:src="@drawable/my_divider_dark" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/sales_person_divider">
+
+                        <TextView
+                            android:id="@+id/select_sales_person"
+                            style="@style/MyFont.Medium.Dark"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Select Sales Person" />
+
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:id="@+id/sales_person"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/select_sales_person" />
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/text_color_white"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/payment_method_title"
+                        style="@style/MyFont.Small.Light.Italic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Payment Method" />
+
+                    <ImageView
+                        android:id="@+id/payment_method_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/payment_method_title"
+                        android:src="@drawable/my_divider_dark" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/payment_method_title"
+                        android:layout_marginTop="1dp">
+
+                        <TextView
+                            android:id="@+id/select_payment_method"
+                            style="@style/MyFont.Medium.Dark"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Select Payment Method" />
+
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:id="@+id/payment_method"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/select_payment_method" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/text_color_white"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/attachment_title"
+                        style="@style/MyFont.Small.Light.Italic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:id="@+id/temp_txt2"
-                        android:text="Select Sales Person"
-                        android:textSize="18sp"/>
+                        android:text="Attachments" />
 
-                    <Spinner
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@+id/temp_txt2"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:id="@+id/attachment"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="5dp"
                         android:gravity="center"
-                        android:inputType="text"
-                        android:hint="Customer"
-                        android:focusable="false"
-                        android:id="@+id/sales_person"/>
+                        android:text="@string/icon_attachment"
+                        android:textSize="24sp" />
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:id="@+id/camera"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_toLeftOf="@+id/attachment"
+                        android:gravity="center"
+                        android:text="@string/icon_camera"
+                        android:textSize="24sp" />
+
+                    <ImageView
+                        android:id="@+id/attachment_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/camera"
+                        android:src="@drawable/my_divider_dark" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_attachments"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/attachment_divider"></android.support.v7.widget.RecyclerView>
 
                 </RelativeLayout>
-
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/text_color_white"
+                    android:padding="8dp">
 
-                    <com.joanzapata.iconify.widget.IconTextView
-                        android:layout_marginEnd="5dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:textSize="24sp"
-                        android:gravity="center"
-                        android:id="@+id/attachment"
-                        android:text="@string/icon_attachment"/>
+                    <TextView
+                        android:id="@+id/remarks_title"
+                        style="@style/MyFont.Small.Light.Italic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerVertical="true"
+                        android:text="Attachments" />
 
-                    <com.joanzapata.iconify.widget.IconTextView
-                        android:layout_marginRight="16dp"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_toLeftOf="@+id/attachment"
-                        android:textSize="24sp"
-                        android:gravity="center"
-                        android:id="@+id/camera"
-                        android:text="@string/icon_camera"/>
+                    <ImageView
+                        android:id="@+id/remarks_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/remarks_title"
+                        android:src="@drawable/my_divider_dark" />
+
+                    <com.adec.firebasestorekeeper.CustomView.MyEditText
+                        android:id="@+id/remarks"
+                        style="@style/MyEt.Black"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_below="@id/remarks_divider"
+                        android:gravity="top"
+                        android:hint="Remarks"
+                        android:inputType="textMultiLine" />
 
                 </RelativeLayout>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/divider"/>
-
-                <android.support.v7.widget.RecyclerView
-                    android:padding="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rv_attachments">
-
-                </android.support.v7.widget.RecyclerView>
-
-                <com.adec.firebasestorekeeper.CustomView.MyEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:gravity="top"
-                    android:paddingLeft="10dp"
-                    android:inputType="textMultiLine"
-                    android:hint="Remarks"
-                    android:id="@+id/remarks"/>
-
-
-
 
 
             </LinearLayout>
@@ -238,15 +489,13 @@
     </ScrollView>
 
     <Button
+        android:id="@+id/add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="add"
-        android:id="@+id/add"
+        android:layout_alignParentBottom="true"
         android:background="@color/my_color"
-        android:textColor="@color/text_color_white"
-        android:layout_alignParentBottom="true"/>
-
-
+        android:text="add"
+        android:textColor="@color/text_color_white" />
 
 
 </RelativeLayout>

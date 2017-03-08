@@ -64,7 +64,7 @@ public class ReportFragment extends Fragment implements MyStoreReferenceClass.St
         currentUser = userLocalStore.getUser();
 
         dialog = new ProgressDialog(getActivity());
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.setMessage("Please Wait..");
         dialog.show();
 

@@ -23,6 +23,18 @@
             android:id="@+id/close"
             android:background="@drawable/custom_bg"/>
 
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:padding="4dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/history"
+            android:clickable="true"
+            android:id="@+id/history"
+            android:visibility="gone"
+            android:background="@drawable/custom_bg"/>
+
 
     </RelativeLayout>
 

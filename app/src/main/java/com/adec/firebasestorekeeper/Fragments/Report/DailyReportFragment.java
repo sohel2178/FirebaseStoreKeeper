@@ -171,6 +171,8 @@ public class DailyReportFragment extends Fragment implements View.OnClickListene
     public void onItemClick(int position) {
         OwnerDataModel model =ownerDataModelList.get(position);
 
+        Log.d("SSSS",model.getStore_name()+"");
+
         Bundle bundle = new Bundle();
         bundle.putSerializable("data",model);
         bundle.putString("date",dateStr);

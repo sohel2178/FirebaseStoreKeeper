@@ -6,37 +6,19 @@ package com.adec.firebasestorekeeper.Model;
 
 public class Product {
 
-    private String id;
     private String name;
-    private double price;
+    private int quantity;
+    private double amount;
 
 
     public Product() {
     }
 
 
-    public Product(String id, String name, double price) {
-        this.id = id;
+    public Product(String name, int quantity, double amount) {
         this.name = name;
-        this.price = price;
-    }
-
-    public Product(String name, double price) {
-        this.name = name;
-        this.price = price;
-    }
-
-    public Product(String name) {
-        this.name = name;
-    }
-
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+        this.quantity = quantity;
+        this.amount = amount;
     }
 
     public String getName() {
@@ -47,11 +29,19 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
-        return price;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 }

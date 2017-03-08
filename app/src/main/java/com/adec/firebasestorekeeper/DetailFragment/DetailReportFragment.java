@@ -106,6 +106,8 @@ public class DetailReportFragment extends Fragment implements TransactionAdapter
         super.onResume();
         List<Transaction> tempList = ownerDataModel.getTransactionList();
 
+        Log.d("TTTTT",tempList.size()+"");
+
         transactionList = new ArrayList<>();
         adapter = new TransactionAdapter(getActivity(),transactionList);
         adapter.setTransactionListener(this);

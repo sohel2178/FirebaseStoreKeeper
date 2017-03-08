@@ -7,8 +7,8 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:padding="4dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
@@ -16,31 +16,149 @@
         android:layout_marginRight="10dp"
         android:id="@+id/image"/>
 
-    <TextView
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_toRightOf="@+id/image"
+       android:id="@+id/voucher_memo_id"
+       style="@style/MyFont.Big.Bold.Dark"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image"
+        android:layout_below="@+id/voucher_memo_id"
+        android:id="@+id/second_row">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/icon_product"
+            android:layout_centerVertical="true"
+            android:src="@drawable/product"/>
+
+        <TextView
+            android:layout_marginLeft="6dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/products_or_expenditure_head"
+            android:text="0 Products"
+            style="@style/MyFont.Small.Dark"
+            android:layout_toRightOf="@+id/icon_product"/>
+
+        <ImageView
+            android:layout_marginLeft="6dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/icon_store"
+            android:layout_centerVertical="true"
+            android:src="@drawable/store"
+            android:layout_toRightOf="@+id/products_or_expenditure_head"/>
+
+        <TextView
+            android:layout_marginLeft="6dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/store_name"
+            android:text="0 Products"
+            style="@style/MyFont.Small.Dark"
+            android:layout_toRightOf="@+id/icon_store"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image"
+        android:layout_below="@+id/second_row"
+        android:id="@+id/third_row">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/icon_customer"
+            android:layout_centerVertical="true"
+            android:src="@drawable/customers"/>
+
+        <TextView
+            android:layout_marginLeft="6dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pay_to_or_customer"
+            android:text="0 Products"
+            style="@style/MyFont.Small.Dark"
+            android:layout_toRightOf="@+id/icon_customer"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/image"
+        android:layout_below="@+id/third_row"
+        android:id="@+id/forth_row">
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dark_green"
+            android:text="0 Products"
+            android:id="@+id/payment_amount_or_total"
+            style="@style/MyFont.Medium.White"/>
+
+        <TextView
+            android:layout_marginLeft="6dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/orange"
+            android:layout_toRightOf="@+id/payment_amount_or_total"
+            android:text="0 Products"
+            android:id="@+id/due"
+            style="@style/MyFont.Medium.White"/>
+
+        <TextView
+            android:layout_marginLeft="6dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/due"
+            android:text="0 Products"
+            android:id="@+id/date"
+            style="@style/MyFont.Small.Light.Italic"/>
+
+
+    </RelativeLayout>
+
+    <!--<TextView
         android:layout_toRightOf="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/pay_to_or_customer"
-        android:textSize="16sp"
-        android:text="Customer Name"/>
+        android:text="Customer Name"/>-->
 
 
-    <TextView
+   <!-- <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/payment_amount_or_total"
         android:layout_alignParentEnd="true"
-        android:textSize="16sp"/>
+        android:textSize="16sp"/>-->
 
-    <TextView
+    <!--<TextView
         android:layout_below="@+id/payment_amount_or_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/voucher_memo_id"
         android:layout_alignParentEnd="true"
-        android:textSize="12sp"/>
+        android:textSize="12sp"/>-->
 
-    <TextView
+   <!-- <TextView
         android:layout_below="@+id/voucher_memo_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,12 +166,13 @@
         android:layout_alignParentEnd="true"
         android:textColor="@color/colorPrimary"
         android:textStyle="italic"
-        android:textSize="10sp"/>
+        android:textSize="10sp"/>-->
 
     <ImageView
+        android:layout_marginTop="2dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/date"
+        android:layout_below="@+id/forth_row"
         android:src="@drawable/divider"/>
 
 
